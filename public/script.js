@@ -21,11 +21,19 @@ window.onload = function() {
 
         const data = await res.json();
         if (data.success) {
-            alert("OTP sent to your email");
+            // If server returned a debug OTP (for environments without email configured), surface it
+            if (data.debugOtp) {
+                alert(`OTP (debug): ${data.debugOtp}`);
+                // pre-fill the OTP input to make verification easy during testing
+                const otpInput = document.getElementById('otp');
+                if (otpInput) otpInput.value = data.debugOtp;
+            } else {
+                alert("OTP sent to your email");
+            }
             document.getElementById('step-email').classList.add('hidden');
             document.getElementById('step-otp').classList.remove('hidden');
         } else {
-            alert("Failed to send OTP");
+            alert(data.message || "Failed to send OTP");
         }
     });
 
