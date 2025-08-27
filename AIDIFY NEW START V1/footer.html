@@ -73,38 +73,45 @@
     .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   </style>
 </head>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Aidify – Redirecting</title>
-    <meta http-equiv="refresh" content="0;url=./landing_page.html">
-    <script>
-      // Fallback redirect for browsers that don't honor meta refresh immediately
-      window.location.replace('./landing_page.html');
-    </script>
-  </head>
-  <body>
-    <p>If you are not redirected, <a href="./landing_page.html">click here to open the landing page</a>.</p>
-    <footer class="ecommerce-footer" aria-label="Site footer">
-      <div class="footer-top">
-        <div class="container brand-row">
-          <div class="brand">
-            <img src="logo-removebg-preview (1).png" alt="Aidify logo" style="width:140px; height:auto" onerror="this.style.display='none'">
-            <div class="brand-name">Aidify</div>
-          </div>
-          <div class="trust" aria-label="Trust signals">
-            <div class="item">🔒 Secure checkout</div>
-            <div class="item">↩️ 30‑day returns</div>
-            <div class="item">🚚 Fast delivery</div>
-          </div>
-        </div>
+<body>
+
+<footer class="ecommerce-footer" aria-label="Site footer">
+  <div class="footer-top">
+    <div class="container brand-row">
+      <div class="brand">
+        <img src="logo-removebg-preview (1).png" alt="Aidify logo" style="width:140px; height:auto" onerror="this.style.display='none'">
+        <div class="brand-name">Aidify</div>
       </div>
-      <!-- Additional footer content omitted for brevity -->
-    </footer>
-  </body>
-</html>
+      <div class="trust" aria-label="Trust signals">
+        <div class="item">🔒 Secure checkout</div>
+        <div class="item">↩️ 30‑day returns</div>
+        <div class="item">🚚 Fast delivery</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="newsletter" aria-label="Newsletter signup">
+    <div class="container newsletter-inner">
+      <div>
+        <h3>Get 10% off your first order</h3>
+        <p class="muted">Join our list for exclusive drops, news and deals.</p>
+      </div>
+      <form class="subscribe" id="newsletterForm">
+        <label class="visually-hidden" for="newsletterEmail">Email</label>
+        <input id="newsletterEmail" type="email" placeholder="Your email" required />
+        <button class="btn btn-primary" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="container footer-grid">
+    <div class="col">
+      <h4>About Aidify</h4>
+      <p class="muted">Quality products curated with care. We aim to deliver value, style and a seamless shopping experience.</p>
+      <div class="payments" aria-label="Payment methods">
+        <div class="pay" title="Visa">
+          <svg width="36" height="18" viewBox="0 0 64 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="24" rx="4" fill="#1a1a1a"/><text x="13" y="16" fill="#fff" font-family="Arial" font-size="12">VISA</text></svg>
+        </div>
         <div class="pay" title="Mastercard">
           <svg width="36" height="18" viewBox="0 0 64 24" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="24" rx="4" fill="#1a1a1a"/><circle cx="26" cy="12" r="6" fill="#EB001B"/><circle cx="38" cy="12" r="6" fill="#F79E1B"/></svg>
         </div>
