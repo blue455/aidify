@@ -13,3 +13,10 @@
   to = "https://aidify-backend.onrender.com/uploads/:splat"
   status = 200
   force = true
+
+[[redirects]]
+  # SPA fallback: serve the landing page for all client-side routes so paths like /auth work
+  from = "/*"
+  to = "/landing_page.html"
+  status = 200
+  force = true
