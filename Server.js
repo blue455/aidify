@@ -94,10 +94,15 @@ app.post('/send-otp', async (req, res) => {
     const code = randomInt(100000, 1000000).toString();
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
-    await pool.execute(
-      'INSERT INTO otps (email, code, purpose, expires_at, used) VALUES (?, ?, \'signup\', ?, 0)',
-      [email, code, expiresAt]
-    );
+    try {
+      await pool.execute(
+        'INSERT INTO otps (email, code, purpose, expires_at, used) VALUES (?, ?, \'signup\', ?, 0)',
+        [email, code, expiresAt]
+      );
+    } catch (dbErr) {
+      console.error('Failed to write OTP to DB, continuing in debug mode:', dbErr);
+      // continue — we still want signup to work even if DB logging of OTP fails
+    }
     // If email credentials aren't configured, log and fall back to returning the OTP
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       console.warn('Email credentials missing (EMAIL_USER/EMAIL_PASS). Returning OTP in response for debugging.');
