@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDIFY — Categories</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="product.css">
+  <style>
+    .page-wrap{ max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    .section-header{ display:flex; align-items:center; justify-content:space-between; margin-top:2rem; margin-bottom:.5rem; }
+    .section-header h2{ margin:0; font-size:1.6rem; }
+    .muted{ color: var(--muted); }
+    .category-empty{ color: var(--muted); padding: .75rem 0; }
+  </style>
+</head>
+<body>
+  <main class="page-wrap">
+    <header>
+      <h1>Categories</h1>
+      <p class="muted">Explore products grouped by their category.</p>
+    </header>
+
+    <div id="categoriesContainer"></div>
+    <div id="noProducts" class="muted" style="display:none; padding: 1rem 0;">No published products found.</div>
+  </main>
+
+  <script src="categories.js"></script>
+<script src="accessibility-manager.js"></script>
+<script src="shared/navbar.js"></script>
+</body>
+</html>

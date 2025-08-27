@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="payment-style.css">
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Choose Your Payment Method</h1>
+        <div class="payment-methods">
+            <div class="payment-card active" id="mtn-card">
+                <img src="images/mtn-logo.svg" alt="MTN">
+                <span>MTN Mobile Money</span>
+            </div>
+            <div class="payment-card active" id="orange-card">
+                <img src="images/orange-logo.svg" alt="Orange">
+                <span>Orange Money</span>
+            </div>
+            <div class="payment-card disabled">
+                <img src="images/bank-logo.svg" alt="Bank">
+                <span>Bank Transfer <small>(Coming Soon)</small></span>
+            </div>
+            <div class="payment-card disabled">
+                <img src="images/paypal-logo.svg" alt="PayPal">
+                <span>PayPal <small>(Coming Soon)</small></span>
+            </div>
+        </div>
+        <div id="payment-form-section"></div>
+    </div>
+    <script src="payment.js"></script>
+</body>
+</html>

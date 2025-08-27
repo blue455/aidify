@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIDIFY — Cart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="product.css">
+  <style>
+    .page-wrap{ max-width:1200px; margin:2rem auto; padding:0 1rem; }
+    .header-row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .header-title{ display:flex; align-items:center; gap:.75rem; }
+    .muted{ color: var(--muted); }
+    .actions{ display:flex; align-items:center; gap:.75rem; }
+    .action-button{ text-decoration:none; }
+
+    .cart-layout{ display:grid; grid-template-columns: 2fr 1fr; gap: 1.25rem; margin-top: 1.25rem; }
+    .card{ background: var(--surface); border:1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+    .card-header{ padding: .9rem 1rem; border-bottom: 1px solid var(--border); font-weight: 700; }
+    .card-body{ padding: 1rem; }
+
+    .cart-item{ display:grid; grid-template-columns: 96px 1fr auto; gap: .75rem; padding: .5rem 0; border-bottom: 1px solid var(--border); }
+    .cart-item:last-child{ border-bottom: 0; }
+    .cart-thumb{ width:96px; height:96px; background: var(--bg-soft); border-radius: 8px; overflow: hidden; display:flex; align-items:center; justify-content:center; }
+    .cart-thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+    .cart-title{ font-weight: 700; margin-bottom: .25rem; }
+    .cart-meta{ color: var(--muted); font-size: .9rem; }
+    .cart-price{ font-weight: 700; color: var(--primary); }
+    .qty-row{ display:flex; align-items:center; gap:.5rem; margin-top:.5rem; }
+    .qty-btn{ width: 28px; height:28px; border-radius: 8px; border:1px solid var(--border); background:#fff; cursor:pointer; font-weight: 800; }
+    .qty-val{ min-width: 24px; text-align:center; font-weight:700; }
+    .remove-btn{ background:none; border:0; color: var(--danger); cursor:pointer; }
+
+    .line-total{ font-weight: 800; }
+
+    .summary-row{ display:flex; align-items:center; justify-content:space-between; padding:.4rem 0; }
+    .summary-row.total{ font-size: 1.1rem; font-weight: 900; border-top: 1px dashed var(--border); margin-top: .5rem; padding-top: .75rem; }
+    .summary-actions{ display:flex; gap:.5rem; margin-top: .75rem; }
+    .btn{ border:0; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; }
+    .btn-primary{ background: var(--primary); color:#fff; }
+    .btn-ghost{ background:#fff; color:var(--primary); border:2px solid var(--primary); }
+    .btn-danger{ background: var(--danger); color: #fff; }
+    .empty-state{ color: var(--muted); padding: 1rem 0; }
+
+    @media (max-width: 900px){ .cart-layout{ grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="page-wrap">
+    <div class="header-row">
+      <div class="header-title">
+        <h1>My Cart</h1>
+        <span class="muted" id="itemsCountLabel"></span>
+      </div>
+      <div class="actions">
+        <a href="Product.html" class="muted"><i class="fas fa-chevron-left"></i> Continue shopping</a>
+        <a href="Wishlist.html" class="action-button" aria-label="Wishlist">
+          <i class="fas fa-heart"></i>
+          <span class="badge" id="wishlistBadge">0</span>
+        </a>
+        <a href="Cart.html" class="action-button" aria-label="Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartBadge">0</span>
+        </a>
+      </div>
+    </div>
+
+    <section class="cart-layout">
+      <div class="card">
+        <div class="card-header">Cart items</div>
+        <div class="card-body" id="cartItems"></div>
+        <div class="card-body" id="cartEmpty" style="display:none;">
+          <div class="empty-state">Your cart is empty. Browse products and add items to your cart.</div>
+        </div>
+      </div>
+      <aside class="card">
+        <div class="card-header">Order summary</div>
+        <div class="card-body">
+          <div class="summary-row"><span>Items</span><strong id="sumItems">0</strong></div>
+          <div class="summary-row"><span>Subtotal</span><strong id="sumSubtotal">$0.00</strong></div>
+          <div class="summary-row"><span>Estimated tax</span><strong id="sumTax">$0.00</strong></div>
+          <div class="summary-row total"><span>Total</span><strong id="sumTotal">$0.00</strong></div>
+          <div class="summary-actions">
+            <button class="btn btn-primary" id="checkoutBtn">Proceed to checkout</button>
+            <button class="btn btn-ghost" id="clearCartBtn">Clear cart</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const qs = (s,r=document)=> r.querySelector(s);
+      const qsa = (s,r=document)=> [...r.querySelectorAll(s)];
+      const currency = (n)=> new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(Number(n||0));
+
+      const CART_KEY = 'aidify.cart';
+      const PROD_KEY = 'aidify.products';
+
+      function getCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)||'[]'); }catch(e){ return []; } }
+      function setCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); updateCartBadge(); }
+      function getProducts(){ try{ return JSON.parse(localStorage.getItem(PROD_KEY)||'[]'); }catch(e){ return []; } }
+      function getProductById(id){ return getProducts().find(p=>p && p.id===id); }
+
+      function updateWishlistBadge(){ const el=qs('#wishlistBadge'); if(!el) return; try{ const list=JSON.parse(localStorage.getItem('aidify.wishlist')||'[]'); el.textContent=String(list.length);}catch(e){ el.textContent='0'; } }
+      function updateCartBadge(){ const el=qs('#cartBadge'); if(!el) return; try{ const cart=getCart(); const total=cart.reduce((s,i)=> s + (Number(i.qty)||0),0); el.textContent=String(total);}catch(e){ el.textContent='0'; } }
+
+      function render(){
+        const wrap = qs('#cartItems');
+        const empty = qs('#cartEmpty');
+        const itemsCountLabel = qs('#itemsCountLabel');
+        const cart = getCart();
+        const enriched = cart.map(it=>{
+          const p = getProductById(it.id) || { images:[], title: it.title, price: it.price };
+          return { ...it, title: p.title || it.title, price: Number(it.price ?? p.price ?? 0), image: (p.images && p.images[0]) || '' };
+        });
+        const itemsCount = enriched.reduce((s,i)=> s + (Number(i.qty)||0), 0);
+        const subtotal = enriched.reduce((s,i)=> s + (Number(i.price)||0) * (Number(i.qty)||0), 0);
+        const tax = subtotal * 0.0; // no tax calculation for now
+        const total = subtotal + tax;
+
+        // Summary
+        qs('#sumItems').textContent = String(itemsCount);
+        qs('#sumSubtotal').textContent = currency(subtotal);
+        qs('#sumTax').textContent = currency(tax);
+        qs('#sumTotal').textContent = currency(total);
+        itemsCountLabel.textContent = itemsCount ? `(${itemsCount} items)` : '';
+
+        if(!enriched.length){
+          wrap.innerHTML = '';
+          empty.style.display = 'block';
+          return;
+        }
+        empty.style.display = 'none';
+
+        wrap.innerHTML = enriched.map(item=>{
+          const lineTotal = (Number(item.price)||0) * (Number(item.qty)||0);
+          const img = item.image ? `<img src="${item.image}" alt="${item.title}">` : `<i class=\"fas fa-image\" style=\"font-size: 2rem; color: var(--muted);\"></i>`;
+          return `
+            <div class="cart-item" data-id="${item.id}">
+              <div class="cart-thumb">${img}</div>
+              <div>
+                <div class="cart-title">${item.title || 'Untitled'}</div>
+                <div class="cart-meta">Unit price: <span class="cart-price">${currency(item.price)}</span></div>
+                <div class="qty-row">
+                  <button class="qty-btn" data-dec="${item.id}">-</button>
+                  <span class="qty-val">${item.qty||1}</span>
+                  <button class="qty-btn" data-inc="${item.id}">+</button>
+                  <button class="remove-btn" data-remove="${item.id}"><i class="fas fa-trash"></i> Remove</button>
+                </div>
+              </div>
+              <div class="line-total">${currency(lineTotal)}</div>
+            </div>`;
+        }).join('');
+      }
+
+      function modifyQty(id, delta){
+        const cart = getCart();
+        const item = cart.find(x=>x.id===id);
+        if(!item) return;
+        const next = Math.max(1, (Number(item.qty)||1) + delta);
+        item.qty = next;
+        setCart(cart);
+        render();
+      }
+      function removeItem(id){
+        let cart = getCart();
+        cart = cart.filter(x=>x.id!==id);
+        setCart(cart);
+        render();
+      }
+      function clearCart(){ setCart([]); render(); }
+
+      function bind(){
+        const container = qs('#cartItems');
+        container.addEventListener('click', (e)=>{
+          const t = e.target;
+          const inc = t.getAttribute('data-inc'); if(inc){ modifyQty(inc, +1); return; }
+          const dec = t.getAttribute('data-dec'); if(dec){ modifyQty(dec, -1); return; }
+          const rm = t.getAttribute('data-remove'); if(rm){ removeItem(rm); return; }
+          const btnIcon = t.closest('button');
+          if(btnIcon){
+            const inc2 = btnIcon.getAttribute('data-inc'); if(inc2){ modifyQty(inc2, +1); return; }
+            const dec2 = btnIcon.getAttribute('data-dec'); if(dec2){ modifyQty(dec2, -1); return; }
+            const rm2 = btnIcon.getAttribute('data-remove'); if(rm2){ removeItem(rm2); return; }
+          }
+        });
+        const checkoutBtn = qs('#checkoutBtn');
+        checkoutBtn.addEventListener('click', ()=>{
+          const cart = getCart();
+          if(!cart.length){ alert('Your cart is empty.'); return; }
+          window.location.href = 'Checkout.html';
+        });
+        const clearBtn = qs('#clearCartBtn');
+        clearBtn.addEventListener('click', ()=>{ if(confirm('Clear all items in cart?')) clearCart(); });
+      }
+
+      window.addEventListener('storage', (e)=>{
+        if(e.key===CART_KEY){ render(); updateCartBadge(); }
+        if(e.key==='aidify.wishlist'){ updateWishlistBadge(); }
+      });
+
+      document.addEventListener('DOMContentLoaded', ()=>{ render(); bind(); updateCartBadge(); updateWishlistBadge(); });
+    })();
+  </script>
+<script src="accessibility-manager.js"></script>
+  <script src="shared/navbar.js"></script>
+</body>
+</html>

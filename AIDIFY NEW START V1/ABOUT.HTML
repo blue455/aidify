@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Aidify - Your Trusted E-Commerce Partner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background-color: #fff9f0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #44bba4 0%, #3797a4 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="90" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="50" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideInFromTop 1s ease-out;
+        }
+
+        @keyframes slideInFromTop {
+            0% { opacity: 0; transform: translateY(-30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: slideInFromBottom 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInFromBottom {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .story-section {
+            padding: 100px 0;
+            background: #fff9f0;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .story-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #1a202c;
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #4a5568;
+        }
+
+        .story-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .story-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #44bba4, #3797a4);
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .story-image-content {
+            height: 400px;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #718096;
+            position: relative;
+            z-index: 2;
+        }
+
+        .values-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .value-card {
+            padding: 40px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #44bba4, #3797a4);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(68, 187, 164, 0.1);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #44bba4, #3797a4);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #1a202c;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #44bba4 0%, #3797a4 100%);
+            color: white;
+        }
+
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonials-slider {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonials-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial {
+            flex: 0 0 100%;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            margin: 0 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #44bba4;
+            font-weight: bold;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .team-section {
+            padding: 100px 0;
+            background: #fff9f0;
+            color: #333;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(68, 187, 164, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #44bba4, #3797a4);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .timeline-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #44bba4, #3797a4);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 50%;
+            padding: 0 40px;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid rgba(68, 187, 164, 0.1);
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -50px;
+            background: linear-gradient(135deg, #44bba4, #3797a4);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #44bba4 0%, #3797a4 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #44bba4;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #44bba4;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #1a202c;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .testimonials-section .section-title h2,
+        .testimonials-section .section-title p {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .story-content { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+            .timeline::before { left: 20px; }
+            .timeline-item { width: 100%; margin-left: 0; padding-left: 60px; text-align: left; }
+            .timeline-date { left: 20px; transform: none; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .testimonial { padding: 30px 20px; }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .counter {
+            transition: all 0.3s ease;
+        }
+    </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style id="about-slider-styles">
+    .hero-section{ display:none !important; }
+    .about-hero-slider{ position:relative; height:320px; background:#0b0b0b; overflow:hidden; }
+    .about-hero-slide{ position:absolute; inset:0; opacity:0; transition: opacity 1s ease; }
+    .about-hero-slide.active{ opacity:1; }
+    .about-hero-slide img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .about-hero-caption{ position:absolute; left:0; right:0; bottom:0; padding:10px 14px; color:#fff; font-weight:800; text-shadow:0 2px 8px rgba(0,0,0,.6); background: linear-gradient(to top, rgba(0,0,0,.45), rgba(0,0,0,0)); }
+    @media (max-width: 700px){ .about-hero-slider{ height: 54vw; } }
+  </style>
+</head>
+<body>
+  <!-- Product slider showcasing newest published products in stock (40–1000) -->
+  <section class="about-hero-slider" aria-label="Showcased products" id="aboutSlider">
+    <div class="about-hero-slide active"><div class="about-hero-caption">Loading latest products…</div></div>
+  </section>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Aidify</h1>
+                <p>Revolutionizing e-commerce with intelligent solutions that connect, inspire, and deliver exceptional experiences worldwide.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number counter" data-target="5000">0</span>
+                        <span>Happy Customers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number counter" data-target="10000">0</span>
+                        <span>Products Sold</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number counter" data-target="15">0</span>
+                        <span>Countries Served</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number counter" data-target="99">0</span>
+                        <span>% Satisfaction Rate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content fade-in">
+                <div class="story-text">
+                    <h2>Our Story</h2>
+                    <p>Founded with a vision to transform the digital shopping experience, Aidify began as a simple idea: to make e-commerce more intelligent, accessible, and customer-centric.</p>
+                    <p>What started as a small team of passionate entrepreneurs has grown into a thriving platform that serves customers worldwide. We believe that technology should simplify life, not complicate it.</p>
+                    <p>Every feature we build, every partnership we form, and every customer interaction we have is guided by our commitment to excellence and innovation in the digital marketplace.</p>
+                </div>
+                <div class="story-image">
+                    <div class="story-image-content">
+                        <span>Our Journey Continues</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Core Values</h2>
+                <p>The principles that guide everything we do and shape our culture</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card fade-in">
+                    <div class="value-icon">🚀</div>
+                    <h3>Innovation First</h3>
+                    <p>We constantly push boundaries to deliver cutting-edge solutions that anticipate and exceed customer expectations in the ever-evolving digital landscape.</p>
+                </div>
+                
+                <div class="value-card fade-in">
+                    <div class="value-icon">🤝</div>
+                    <h3>Customer Obsession</h3>
+                    <p>Every decision we make starts with our customers. Their success is our success, and we're committed to providing unparalleled service and support.</p>
+                </div>
+                
+                <div class="value-card fade-in">
+                    <div class="value-icon">🔒</div>
+                    <h3>Trust & Security</h3>
+                    <p>We maintain the highest standards of data protection and transaction security, ensuring our customers can shop with complete confidence.</p>
+                </div>
+                
+                <div class="value-card fade-in">
+                    <div class="value-icon">🌍</div>
+                    <h3>Global Impact</h3>
+                    <p>We're building bridges between cultures and markets, creating opportunities for businesses and customers to connect across borders.</p>
+                </div>
+                
+                <div class="value-card fade-in">
+                    <div class="value-icon">⚡</div>
+                    <h3>Agility & Speed</h3>
+                    <p>In a fast-paced digital world, we pride ourselves on rapid innovation, quick response times, and seamless user experiences.</p>
+                </div>
+                
+                <div class="value-card fade-in">
+                    <div class="value-icon">💡</div>
+                    <h3>Continuous Learning</h3>
+                    <p>We foster a culture of growth, embracing new technologies and methodologies to stay ahead of industry trends and challenges.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>What Our Customers Say</h2>
+                <p>Hear from businesses and shoppers who have experienced the Aidify difference</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonials-slider">
+                    <div class="testimonials-track">
+                        <div class="testimonial">
+                            <div class="testimonial-avatar">JD</div>
+                            <p class="testimonial-text">"Aidify transformed our online store. The intelligent recommendations increased our sales by 35% in just three months. Their platform is intuitive and powerful."</p>
+                            <div class="testimonial-author">Chuo cleovert</div>
+                            <div class="testimonial-role">CEO, FashionHub</div>
+                        </div>
+                        
+                        <div class="testimonial">
+                            <div class="testimonial-avatar">SM</div>
+                            <p class="testimonial-text">"The customer support is exceptional. Whenever we've had questions or needed guidance, the Aidify team has been responsive and knowledgeable."</p>
+                            <div class="testimonial-author">Larry-prince</div>
+                            <div class="testimonial-role">E-commerce Manager, TechGadgets</div>
+                        </div>
+                        
+                        <div class="testimonial">
+                            <div class="testimonial-avatar">RJ</div>
+                            <p class="testimonial-text">"As a small business owner, I appreciate how Aidify levels the playing field. Their tools are sophisticated yet accessible, helping us compete with larger retailers."</p>
+                            <div class="testimonial-author">Bekarason Molly</div>
+                            <div class="testimonial-role">Owner, Handcrafted Treasures</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <div class="testimonial-dot active" data-index="0"></div>
+                    <div class="testimonial-dot" data-index="1"></div>
+                    <div class="testimonial-dot" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Meet Our Team</h2>
+                <p>The passionate individuals behind Aidify's success</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-card fade-in">
+                    <div class="team-avatar">CC</div>
+                    <h3>Chuo Cleovert</h3>
+                    <p>CEO & Founder</p>
+                    <p>Visionary leader in e-commerce and technology innovation.</p>
+                </div>
+                
+                <div class="team-card fade-in">
+                    <div class="team-avatar">LP</div>
+                    <h3>Larry Prince</h3>
+                    <p>Backend Developer</p>
+                    <p>Technology strategist passionate about scalable solutions and user experience.</p>
+                </div>
+                
+                <div class="team-card fade-in">
+                    <div class="team-avatar">BM</div>
+                    <h3>Bekarason Molly</h3>
+                    <p>Head of Operations</p>
+                    <p>Operations expert ensuring seamless processes and exceptional customer service.</p>
+                </div>
+                
+                <div class="team-card fade-in">
+                    <div class="team-avatar">SR</div>
+                    <h3>Ako Favour</h3>
+                    <p>Marketing Director</p>
+                    <p>Creative strategist building meaningful connections between brands and customers.</p>
+                </div>
+                
+                <div class="team-card fade-in">
+                    <div class="team-avatar">AH</div>
+                    <h3>Anosini Hyson</h3>
+                    <p>Frontend Developer</p>
+                    <p>UI/UX expert creating beautiful and functional user interfaces.</p>
+                </div>
+                
+                <div class="team-card fade-in">
+                    <div class="team-avatar">MB</div>
+                    <h3>Mrs Blessing</h3>
+                    <p>Marketing Specialist</p>
+                    <p>Digital marketing expert driving brand awareness and customer engagement.</p>
+                </div>
+                
+                <div class="team-card fade-in">
+                    <div class="team-avatar">MS</div>
+                    <h3>Malle Stephan</h3>
+                    <p>Frontend Developer</p>
+                    <p>Creative coder specializing in responsive design and interactive experiences.</p>
+                </div>
+                  <div class="team-card fade-in">
+                    <div class="team-avatar">AM</div>
+                    <h3>Abram Movish</h3>
+                    <p>Frontend Developer</p>
+                    <p>Creative coder specializing in responsive design and interactive experiences.</p>
+                </div>
+                  <div class="team-card fade-in">
+                    <div class="team-avatar">OJ</div>
+                    <h3>Orock joshua</h3>
+                    <p>Frontend Developer</p>
+                    <p>Creative coder specializing in responsive design and interactive experiences.</p>
+                </div>
+                  <div class="team-card fade-in">
+                    <div class="team-avatar">NR</div>
+                    <h3>Ndzi Ramsey</h3>
+                    <p>Frontend Developer</p>
+                    <p>Creative coder specializing in responsive design and interactive experiences.</p>
+                </div>
+                  <div class="team-card fade-in">
+                    <div class="team-avatar">BS</div>
+                    <h3>Bonam shandella</h3>
+                    <p>Frontend Developer</p>
+                    <p>Creative coder specializing in responsive design and interactive experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Journey</h2>
+                <p>Key milestones that shaped Aidify into what it is today</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-date">2020</div>
+                    <div class="timeline-content">
+                        <h3>The Beginning</h3>
+                        <p>Aidify was founded with a mission to revolutionize e-commerce through intelligent technology solutions.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-date">2021</div>
+                    <div class="timeline-content">
+                        <h3>First 1000 Customers</h3>
+                        <p>Reached our first major milestone and launched our WEB app to enhance customer experience.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-content">
+                        <h3>International Expansion</h3>
+                        <p>Expanded operations to 10 new countries and introduced AI-powered recommendation systems.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3>Technology Innovation</h3>
+                        <p>Launched advanced analytics platform and introduced sustainable packaging initiatives.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3>Market Leadership</h3>
+                        <p>Became a recognized leader in intelligent e-commerce solutions with 5000+ satisfied customers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Ready to Experience Aidify?</h2>
+                <p>Join thousands of satisfied customers and discover what makes our platform special</p>
+                
+                <div class="cta-buttons">
+                    <a href="Product.html" class="btn btn-primary">Start Shopping</a>
+                    <a href="ContactPage.html" class="btn btn-outline">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Fade in animation on scroll
+        function fadeInOnScroll() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Smooth scrolling for internal links
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // Testimonials slider functionality
+        function initTestimonials() {
+            const track = document.querySelector('.testimonials-track');
+            const dots = document.querySelectorAll('.testimonial-dot');
+            const testimonials = document.querySelectorAll('.testimonial');
+            let currentIndex = 0;
+            
+            function goToTestimonial(index) {
+                if (index < 0) index = testimonials.length - 1;
+                if (index >= testimonials.length) index = 0;
+                
+                track.style.transform = `translateX(-${index * 100}%)`;
+                
+                // Update active dot
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[index].classList.add('active');
+                
+                currentIndex = index;
+            }
+            
+            // Add click events to dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => goToTestimonial(index));
+            });
+            
+            // Auto-advance testimonials
+            setInterval(() => {
+                goToTestimonial(currentIndex + 1);
+            }, 5000);
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(animateCounters, 1000);
+            fadeInOnScroll();
+            smoothScroll();
+            initTestimonials();
+        });
+
+        // Add dynamic interaction to value cards
+        document.querySelectorAll('.value-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-section::before');
+            const speed = scrolled * 0.5;
+            
+            if (scrolled < window.innerHeight) {
+                document.querySelector('.hero-section').style.transform = `translateY(${speed}px)`;
+            }
+        });
+    </script>
+<!-- Simplified Footer (from Home) -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container footer-inner" style="display:flex; gap:24px; justify-content:space-between; align-items:flex-start; padding:24px 0; border-top:1px solid var(--border);">
+      <div class="footer-brand" style="max-width:360px;">
+        <a href="Home_page.html" class="logo-container" aria-label="Go to Home" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit;">
+          <div class="logo-image"><img src="P&AEF_copy.png" alt="AIDIFY logo" height="40"></div>
+          <div class="logo-text" style="font-weight:900; letter-spacing:.3px;">AIDIFY</div>
+        </a>
+        <p class="muted" style="margin:10px 0 0;">Quality products curated with care. We aim to deliver value, style and a seamless shopping experience.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation" style="display:grid; grid-template-columns: repeat(3, minmax(160px, 1fr)); gap:18px; flex:1;">
+        <div class="col">
+          <h4>Shop</h4>
+          <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+            <a href="/newarrival.html">New arrivals</a>
+            <a href="Categories.html#category=Electronics">Electronics</a>
+            <a href="Categories.html#category=Clothing">Clothing</a>
+            <a href="Categories.html#category=Accessories">Accessories</a>
+            <a href="#" aria-disabled="true">Gift cards</a>
+          </div>
+        </div>
+        <div class="col">
+          <h4>Help</h4>
+          <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+            <a href="#" aria-disabled="true">Shipping & delivery</a>
+            <a href="#" aria-disabled="true">Returns & exchanges</a>
+            <a href="#" aria-disabled="true">FAQs</a>
+            <a href="#" aria-disabled="true">Track order</a>
+            <a href="ABOUT.HTML">About</a>
+            <a href="/ContactPage.html">Contact us</a>
+          </div>
+        </div>
+        <div class="col">
+          <h4>Legal</h4>
+          <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+            <a href="#" aria-disabled="true">Privacy policy</a>
+            <a href="#" aria-disabled="true">Terms of service</a>
+            <a href="#" aria-disabled="true">Cookie policy</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom" style="border-top:1px solid var(--border);">
+      <div class="container bottom-row" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; flex-wrap:wrap;">
+        <div>© <span id="year"></span> Aidify. <span>All rights reserved.</span></div>
+        <div class="selects" aria-label="Region and currency" style="display:flex; align-items:center; gap:8px;">
+          <label class="visually-hidden" for="region">Region</label>
+          <select id="region"><option>Cameroon</option><option>United States</option><option>Germany</option><option>United Kingdom</option></select>
+          <label class="visually-hidden" for="currency">Currency</label>
+          <select id="currency"><option>USD $</option><option>EUR €</option><option>GBP £</option><option>XAF ₣</option></select>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>document.addEventListener('DOMContentLoaded', function(){ var y=document.getElementById('year'); if(y) y.textContent=(new Date()).getFullYear(); });</script>
+
+  <!-- Slider population script -->
+  <script>
+  (function(){
+    function getProducts(){ try{ return JSON.parse(localStorage.getItem('aidify.products')||'[]'); }catch(e){ return []; } }
+    function buildSlider(){
+      var cont = document.getElementById('aboutSlider'); if(!cont) return;
+      var list = getProducts().filter(function(p){ return p && p.status==='published' && Number(p.stock)>=40 && Number(p.stock)<=1000; });
+      list.sort(function(a,b){ return (b.createdAt||0) - (a.createdAt||0); });
+      var slides = list.slice(0,10).map(function(p){ return { src: (p.images&&p.images[0])||'', title: p.title||'Untitled' }; }).filter(function(s){ return !!s.src; });
+      if (!slides.length){ cont.innerHTML = '<div class="about-hero-slide active"><div class="about-hero-caption">No recent products to showcase</div></div>'; return; }
+      cont.innerHTML = slides.map(function(s, i){ return '<div class="about-hero-slide'+(i===0?' active':'')+'"><img src="'+s.src+'" alt="'+s.title+'"><div class="about-hero-caption">'+s.title+'</div></div>'; }).join('');
+      var idx = 0; setInterval(function(){ var els = cont.querySelectorAll('.about-hero-slide'); if(!els.length) return; els[idx].classList.remove('active'); idx = (idx+1)%els.length; els[idx].classList.add('active'); }, 4000);
+    }
+    document.addEventListener('DOMContentLoaded', buildSlider);
+  })();
+  </script>
+
+  <!-- Shared navbar + i18n -->
+  <script src="accessibility-manager.js"></script>
+  <script src="shared/navbar.js"></script>
+  <script src="i18n.js"></script>
+</body>
+</html>

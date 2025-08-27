@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIDIFY — Checkout</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="product.css">
+  <style>
+    .page-wrap{ max-width:1200px; margin:2rem auto; padding:0 1rem; }
+    .header-row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .muted{ color: var(--muted); }
+    .action-button{ text-decoration:none; }
+    .checkout-layout{ display:grid; grid-template-columns: 2fr 1fr; gap: 1.25rem; margin-top: 1.25rem; align-items: start; }
+
+    .card{ background: var(--surface); border:1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+    .card-header{ padding: .9rem 1rem; border-bottom: 1px solid var(--border); font-weight: 700; }
+    .card-body{ padding: 1rem; }
+
+    .field{ display:flex; flex-direction: column; gap:.25rem; margin-bottom: .75rem; }
+    .row{ display:grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    label{ font-weight:600; }
+    input, select, textarea{ border:1px solid var(--border); border-radius: 8px; padding:.6rem .7rem; background: #fff; }
+
+    .btn{ border:0; padding:12px 16px; border-radius:10px; cursor:pointer; font-weight:700; }
+    .btn-primary{ background: var(--primary); color:#fff; }
+    .btn-ghost{ background:#fff; color:var(--primary); border:2px solid var(--primary); }
+
+    .summary-row{ display:flex; align-items:center; justify-content:space-between; padding:.4rem 0; }
+    .summary-row.total{ font-size: 1.1rem; font-weight: 900; border-top: 1px dashed var(--border); margin-top: .5rem; padding-top: .75rem; }
+    .order-items{ display:flex; flex-direction:column; gap:.5rem; margin-bottom:.75rem; }
+    .order-item{ display:grid; grid-template-columns: 56px 1fr auto; gap:.5rem; align-items:center; }
+    .thumb{ width:56px; height:56px; border-radius: 8px; overflow:hidden; background: var(--bg-soft); display:flex; align-items:center; justify-content:center; }
+    .thumb img{ width:100%; height:100%; object-fit:cover; }
+    .qty-tag{ display:inline-block; padding:.15rem .45rem; border:1px solid var(--border); border-radius: 999px; font-size:.8rem; color: var(--muted); margin-left:.3rem; }
+
+    .pay-options, .ship-options{ display:flex; flex-direction: column; gap:.4rem; }
+
+    .empty-state{ color: var(--muted); padding: 1rem 0; }
+
+    .success{ text-align:center; padding: 2rem 1rem; }
+
+    @media (max-width: 900px){ .checkout-layout{ grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="page-wrap" id="app">
+    <div class="header-row">
+      <h1>Checkout</h1>
+      <div style="display:flex; align-items:center; gap:.75rem;">
+        <a href="Cart.html" class="muted"><i class="fas fa-chevron-left"></i> Back to cart</a>
+        <a href="Wishlist.html" class="action-button" aria-label="Wishlist">
+          <i class="fas fa-heart"></i>
+          <span class="badge" id="wishlistBadge">0</span>
+        </a>
+        <a href="Cart.html" class="action-button" aria-label="Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartBadge">0</span>
+        </a>
+      </div>
+    </div>
+
+    <section id="checkoutContent" class="checkout-layout">
+      <div class="card">
+        <div class="card-header">Shipping & contact</div>
+        <div class="card-body">
+          <form id="checkoutForm">
+            <div class="field">
+              <label for="fullName">Full name</label>
+              <input id="fullName" required placeholder="e.g., Jane Doe" />
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="email" required placeholder="e.g., jane@example.com" />
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" required placeholder="e.g., +1 555 123 4567" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="address">Address</label>
+              <input id="address" required placeholder="Street address" />
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="city">City</label>
+                <input id="city" required />
+              </div>
+              <div class="field">
+                <label for="state">State/Region</label>
+                <input id="state" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="postal">Postal code</label>
+                <input id="postal" />
+              </div>
+              <div class="field">
+                <label for="country">Country</label>
+                <input id="country" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Delivery method</label>
+              <div class="ship-options">
+                <label><input type="radio" name="ship" value="standard" checked /> Standard (3-5 business days) — $5.00</label>
+                <label><input type="radio" name="ship" value="express" /> Express (1-2 business days) — $15.00</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Payment method</label>
+              <div class="pay-options">
+                <label><input type="radio" name="pay" value="card" checked /> Card (demo)</label>
+                <label><input type="radio" name="pay" value="mobile" /> Mobile Money (demo)</label>
+                <label><input type="radio" name="pay" value="cod" /> Cash on delivery</label>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:.5rem; margin-top:1rem;">
+              <button type="submit" class="btn btn-primary">Place order</button>
+              <a href="Cart.html" class="btn btn-ghost">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <aside class="card">
+        <div class="card-header">Order summary</div>
+        <div class="card-body">
+          <div id="orderItems" class="order-items"></div>
+          <div class="summary-row"><span>Items</span><strong id="sumItems">0</strong></div>
+          <div class="summary-row"><span>Subtotal</span><strong id="sumSubtotal">$0.00</strong></div>
+          <div class="summary-row"><span>Shipping</span><strong id="sumShipping">$0.00</strong></div>
+          <div class="summary-row total"><span>Total</span><strong id="sumTotal">$0.00</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="successState" class="card success" style="display:none;">
+      <div class="card-body">
+        <i class="fas fa-check-circle" style="font-size:2.6rem; color: var(--success);"></i>
+        <h2 style="margin-top:.75rem;">Order placed successfully</h2>
+        <p class="muted" id="successMsg"></p>
+        <div style="display:flex; gap:.5rem; justify-content:center; margin-top:1rem;">
+          <a class="btn btn-primary" href="Product.html">Continue shopping</a>
+          <a class="btn btn-ghost" href="Cart.html">View cart</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const qs = (s,r=document)=> r.querySelector(s);
+      const qsa = (s,r=document)=> [...r.querySelectorAll(s)];
+      const currency = (n)=> new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(Number(n||0));
+      const CART_KEY = 'aidify.cart';
+
+      function getCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY)||'[]'); }catch(e){ return []; } }
+      function setCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); }
+      function getProducts(){ try{ return JSON.parse(localStorage.getItem('aidify.products')||'[]'); }catch(e){ return []; } }
+      function getProductById(id){ return getProducts().find(p=>p && p.id===id); }
+
+      function updateWishlistBadge(){ const el=qs('#wishlistBadge'); if(!el) return; try{ const list=JSON.parse(localStorage.getItem('aidify.wishlist')||'[]'); el.textContent=String(list.length);}catch(e){ el.textContent='0'; } }
+      function updateCartBadge(){ const el=qs('#cartBadge'); if(!el) return; try{ const cart=getCart(); const total=cart.reduce((s,i)=> s + (Number(i.qty)||0),0); el.textContent=String(total);}catch(e){ el.textContent='0'; } }
+
+      function enrichCart(){
+        const cart = getCart();
+        return cart.map(it=>{
+          const p = getProductById(it.id) || { images:[], title: it.title, price: it.price };
+          return { ...it, title: p.title || it.title, price: Number(it.price ?? p.price ?? 0), image: (p.images && p.images[0]) || '' };
+        });
+      }
+
+      function getShippingCost(method, subtotal){
+        if(method==='express') return 15;
+        // Free standard shipping for subtotal >= 100 (demo policy)
+        if(subtotal>=100) return 0;
+        return 5;
+      }
+
+      function renderSummary(){
+        const list = enrichCart();
+        const itemsCount = list.reduce((s,i)=> s + (Number(i.qty)||0), 0);
+        const subtotal = list.reduce((s,i)=> s + (Number(i.price)||0) * (Number(i.qty)||0), 0);
+        const method = (qs('input[name="ship"]:checked') || { value:'standard' }).value;
+        const shipping = getShippingCost(method, subtotal);
+        const total = subtotal + shipping;
+
+        const itemsEl = qs('#orderItems');
+        if(!list.length){
+          itemsEl.innerHTML = '<div class="empty-state">Your cart is empty.</div>';
+        } else {
+          itemsEl.innerHTML = list.map(it=>{
+            const img = it.image ? `<img src="${it.image}" alt="${it.title}">` : `<i class="fas fa-image" style="font-size: 1.2rem; color: var(--muted);"></i>`;
+            return `
+              <div class="order-item">
+                <div class="thumb">${img}</div>
+                <div>
+                  <div style="font-weight:700;">${it.title || 'Untitled'} <span class="qty-tag">x${it.qty||1}</span></div>
+                  <div class="muted">${currency(it.price)} each</div>
+                </div>
+                <div style="font-weight:800;">${currency((Number(it.price)||0)*(Number(it.qty)||0))}</div>
+              </div>`;
+          }).join('');
+        }
+
+        qs('#sumItems').textContent = String(itemsCount);
+        qs('#sumSubtotal').textContent = currency(subtotal);
+        qs('#sumShipping').textContent = currency(shipping);
+        qs('#sumTotal').textContent = currency(total);
+      }
+
+      function placeOrder(e){
+        e.preventDefault();
+        const cartRaw = getCart();
+        if(!cartRaw.length){ alert('Your cart is empty.'); window.location.href = 'Cart.html'; return; }
+
+        const fullName = qs('#fullName').value.trim();
+        const email = qs('#email').value.trim();
+        const phone = qs('#phone').value.trim();
+        const address = qs('#address').value.trim();
+        const city = qs('#city').value.trim();
+        const state = qs('#state').value.trim();
+        const postal = qs('#postal').value.trim();
+        const country = qs('#country').value.trim();
+        if(!fullName || !email || !phone || !address || !city || !country){
+          alert('Please fill all required fields (name, email, phone, address, city, country).');
+          return;
+        }
+        const pay = (qs('input[name="pay"]:checked') || { value:'card' }).value;
+        const ship = (qs('input[name="ship"]:checked') || { value:'standard' }).value;
+
+        const list = enrichCart();
+        const subtotal = list.reduce((s,i)=> s + (Number(i.price)||0) * (Number(i.qty)||0), 0);
+        const shipping = getShippingCost(ship, subtotal);
+        const total = subtotal + shipping;
+
+        const orderId = 'ORD-' + Math.random().toString(36).slice(2,8).toUpperCase();
+        const order = {
+          id: orderId,
+          createdAt: Date.now(),
+          buyer: { fullName, email, phone, address, city, state, postal, country },
+          items: list.map(i=>({ id:i.id, title:i.title, price:i.price, qty:i.qty })),
+          subtotal, shipping, total,
+          paymentMethod: pay,
+          deliveryMethod: ship,
+          status: 'open'
+        };
+
+        try{
+          const key='aidify.orders';
+          const orders = JSON.parse(localStorage.getItem(key)||'[]');
+          orders.push(order);
+          localStorage.setItem(key, JSON.stringify(orders));
+          // clear cart
+          setCart([]);
+          updateCartBadge();
+          // show success state
+          qs('#checkoutContent').style.display = 'none';
+          const successMsg = `Order ${orderId} for ${list.length} item(s) placed. Total: ${currency(total)}.`;
+          qs('#successMsg').textContent = successMsg;
+          qs('#successState').style.display = 'block';
+        }catch(err){
+          alert('Could not place order. Please try again.');
+        }
+      }
+
+      function boot(){
+        // Guard: empty cart
+        if(!getCart().length){
+          qs('#orderItems').innerHTML = '<div class="empty-state">Your cart is empty.</div>';
+        }
+        updateCartBadge();
+        updateWishlistBadge();
+        renderSummary();
+
+        // bind events
+        qsa('input[name="ship"]').forEach(r=> r.addEventListener('change', renderSummary));
+        const form = qs('#checkoutForm');
+        form.addEventListener('submit', placeOrder);
+
+        window.addEventListener('storage', (e)=>{
+          if(e.key===CART_KEY){ updateCartBadge(); renderSummary(); }
+          if(e.key==='aidify.wishlist'){ updateWishlistBadge(); }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', boot);
+    })();
+  </script>
+<script src="accessibility-manager.js"></script>
+<script src="shared/navbar.js"></script>
+</body>
+</html>

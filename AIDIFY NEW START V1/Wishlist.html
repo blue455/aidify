@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIDIFY — Wishlist</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="product.css">
+  <style>
+    .page-wrap{ max-width:1200px; margin:2rem auto; padding:0 1rem; }
+    .header-row{ display:flex; align-items:center; justify-content:space-between; }
+    .muted{ color: var(--muted); }
+    .wish-actions{ display:flex; gap:.5rem; margin-top:.5rem; }
+    .btn{ border:0; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; }
+    .btn-primary{ background: var(--primary); color:#fff; }
+    .btn-ghost{ background:#fff; color:var(--primary); border:2px solid var(--primary); }
+    .empty-state{ color: var(--muted); padding: 1rem 0; }
+  </style>
+</head>
+<body>
+  <main class="page-wrap">
+    <div class="header-row">
+      <h1>My Wishlist</h1>
+      <div style="display:flex; align-items:center; gap:.75rem;">
+        <a href="Product.html" class="muted"><i class="fas fa-chevron-left"></i> Back to products</a>
+        <a href="Wishlist.html" class="action-button" aria-label="Wishlist">
+          <i class="fas fa-heart"></i>
+          <span class="badge" id="wishlistBadge">0</span>
+        </a>
+        <a href="Cart.html" class="action-button" aria-label="Cart">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cartBadge">0</span>
+        </a>
+      </div>
+    </div>
+    <div id="wishlistGrid" class="products-grid"></div>
+    <div id="wishlistEmpty" class="empty-state" style="display:none;">Your wishlist is empty.</div>
+  </main>
+  <script src="wishlist.js"></script>
+<script src="accessibility-manager.js"></script>
+<script src="shared/navbar.js"></script>
+</body>
+</html>

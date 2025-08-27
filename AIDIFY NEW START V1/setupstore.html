@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIDIFY — Setup Store</title>
+  <link rel="stylesheet" href="setupstore.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main id="content" tabindex="-1" role="main" style="padding:24px;">
+    <section class="panel fade-up">
+      <div class="setup-grid">
+        <!-- LEFT: Gradient hero -->
+        <figure class="setup-hero" aria-label="AIDIFY setup">
+          <div class="hero-center">
+            <div class="hero-brand">AIDIFY</div>
+            <div class="hero-title">setup your visionary shop in few mins</div>
+          </div>
+        </figure>
+
+        <!-- RIGHT: Form + store image upload -->
+        <div class="setup-form-wrap">
+          <header class="panel-header">
+            <h2>Tell us more about your business</h2>
+            <p>We��ll tailor AIDIFY to your needs.</p>
+            <div class="steps" aria-hidden="true">
+              <div class="step"><div class="bar" id="stepBar1"></div></div>
+              <div class="step"><div class="bar" id="stepBar2"></div></div>
+              <div class="step"><div class="bar" id="stepBar3"></div></div>
+            </div>
+          </header>
+
+          <form id="setupForm" class="grid gap">
+            <section aria-label="Company basics" class="grid gap">
+              <div class="field">
+                <label for="companyName">Company name</label>
+                <input id="companyName" required placeholder="Company name" />
+              </div>
+
+              <div class="field phone">
+                <label for="phone">Telephone</label>
+                <div class="phone-wrap">
+                  <select id="countryCode" aria-label="Country code">
+                    <option value="+237">Cameroon +237</option>
+                    <option value="+1">USA +1</option>
+                    <option value="+44">UK +44</option>
+                    <option value="+33">France +33</option>
+                  </select>
+                  <input id="phone" inputmode="tel" required placeholder="Telephone or mobile number" />
+                </div>
+              </div>
+            </section>
+
+            <section aria-label="Business type" class="grid gap">
+              <fieldset class="field">
+                <legend>Your business type (optional)</legend>
+                <div class="choices">
+                  <label class="choice">
+                    <input type="checkbox" name="types" value="export" />
+                    <span class="choice-card"><span class="choice-icn">🚢</span><span>We do export business</span></span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="types" value="ecommerce" />
+                    <span class="choice-card"><span class="choice-icn">👜</span><span>We run e-commerce business</span></span>
+                  </label>
+                </div>
+              </fieldset>
+            </section>
+
+            <section aria-label="About your store" class="grid gap">
+              <div class="field">
+                <label for="storeDesc">Short description</label>
+                <textarea id="storeDesc" rows="3" placeholder="What do you sell?"></textarea>
+              </div>
+
+              <div class="field">
+                <label for="storeImage">Upload a photo that summarizes your business</label>
+                <input id="storeImage" type="file" accept="image/*" />
+                <div class="upload-preview">
+                  <img id="storeImagePreview" alt="Store preview" />
+                </div>
+              </div>
+            </section>
+
+            <aside class="grid gap" aria-live="polite" style="color:var(--c-muted)">
+              <div id="tipBox">Pro tip: Upload your logo to make your shop unforgettable.</div>
+            </aside>
+
+            <div class="actions">
+              <button class="cta" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="setupstore.js"></script>
+  <script src="accessibility-manager.js"></script>
+  <script src="shared/navbar.js"></script>
+</body>
+</html>

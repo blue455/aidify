@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIDIFY - Personalized & Accessible E-commerce Home</title>
+    <meta name="description" content="Discover personalized shopping experiences with AIDIFY. Shop new arrivals, top products, and get recommendations tailored just for you.">
+    <link rel="stylesheet" href="Home_page.css">
+    <link rel="stylesheet" href="product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style id="aidify-footer-styles">
+      .ecommerce-footer{background:#0f0f0f; color:#e7e7e7}
+      .ecommerce-footer .container{max-width:1180px; margin:0 auto; padding:0 20px}
+      .footer-top{padding:28px 0; border-bottom:1px solid var(--border)}
+      .brand-row{display:flex; align-items:center; gap:14px; justify-content:space-between; flex-wrap:wrap}
+      .brand{display:flex; align-items:center; gap:12px}
+      .brand-name{font-size:20px; font-weight:900; letter-spacing:.3px}
+      .trust{display:flex; gap:10px; flex-wrap:wrap; color:#cfcfcf}
+      .trust .item{display:flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:999px}
+      .newsletter{padding:26px 0; border-bottom:1px solid var(--border)}
+      .newsletter-inner{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+      .newsletter h3{margin:0 0 6px; color:#fff}
+      .newsletter p{margin:0; color:#cfcfcf}
+      .subscribe{display:flex; gap:10px}
+      .subscribe input{padding:12px 12px; border:1px solid var(--border); border-radius:12px; background:#161616; color:#fff; outline:none; min-width:260px}
+      .btn{border:none; border-radius:12px; padding:12px 16px; cursor:pointer; font-weight:800}
+      .btn-primary{background:var(--primary); color:#fff}
+      .btn-primary:hover{background:var(--primary-700)}
+      .footer-grid{display:grid; grid-template-columns: 1.2fr .9fr .9fr .9fr; gap:22px; padding:28px 0}
+      @media (max-width: 980px){ .footer-grid{grid-template-columns:1fr 1fr} }
+      @media (max-width: 560px){ .footer-grid{grid-template-columns:1fr} .newsletter-inner{flex-direction:column; align-items:stretch} .subscribe{width:100%} .subscribe input{flex:1} }
+      .col h4{margin:0 0 10px; color:#fff}
+      .muted{color:#cfcfcf}
+      .links{display:grid; gap:8px}
+      .links a{color:#e7e7e7; text-decoration:none}
+      .links a:hover{color:var(--accent)}
+      .contact{display:grid; gap:8px}
+      .contact a{color:#e7e7e7; text-decoration:none}
+      .contact a:hover{color:var(--accent)}
+      .social{display:flex; gap:10px; margin-top:10px}
+      .icon-btn{display:grid; place-items:center; width:40px; height:40px; border-radius:10px; background:#161616; border:1px solid var(--border); color:#fff}
+      .icon-btn:hover{background:#1e1e1e}
+      .payments{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px}
+      .pay{height:26px; display:grid; place-items:center; padding:6px 10px; background:#161616; border:1px solid var(--border); border-radius:8px}
+      .footer-bottom{border-top:1px solid var(--border); padding:16px 0; color:#cccccc}
+      .bottom-row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+      .legal{display:flex; gap:14px; flex-wrap:wrap}
+      .legal a{color:#cfcfcf; text-decoration:none}
+      .legal a:hover{color:#fff}
+      .selects{display:flex; align-items:center; gap:8px}
+      .ecommerce-footer select{background:#161616; color:#fff; border:1px solid var(--border); border-radius:12px; padding:8px 10px}
+      .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    </style>
+<style id="aidify-theme-overrides">
+      :root{
+        --primary:#3797a4; --primary-700:#2f8692; --accent:#ffc107;
+        --success:#44bba4; --danger:#ff5a5f;
+        --surface:#ffffff; --text:#0f0f0f; --border:#e5e7eb; --bg-soft:#f7f7f9; --muted:#6b7280;
+        --shadow:0 10px 30px rgba(0,0,0,.06);
+      }
+      body.dark-mode{
+        --text:#e5e7eb; --surface:#1a1f25; --border:#2b3440; --bg-soft:#11161c; --muted:#9aa3af; --shadow:0 10px 30px rgba(0,0,0,.35);
+      }
+      body.high-contrast{
+        --text:#000; --surface:#fff; --border:#000; --bg-soft:#f0f0f0; --muted:#444;
+      }
+      body.reduce-motion *{ transition:none !important; animation:none !important; }
+      body.link-highlight a{ text-decoration:underline; text-decoration-thickness:2px; }
+
+      /* Home specific components respond to variables */
+      .news-strip{ background: var(--surface); border-bottom:1px solid var(--border); color: var(--text); }
+      .news-item{ color: var(--text); }
+      .hero{ background: var(--surface); color: var(--text); }
+      .hero .btn.btn-primary{ background: var(--primary); color:#fff; }
+      .hero .btn.btn-secondary{ background: transparent; color: var(--text); border:1px solid var(--border); }
+
+      .section-title{ color: var(--text); }
+      .section-subtitle{ color: var(--muted); }
+
+      .products-grid .product-card,
+      .recommendations-grid .product-card{
+        background: var(--surface); border:1px solid var(--border); box-shadow: var(--shadow);
+      }
+      .product-title{ color: var(--text); }
+      .product-price{ color: var(--primary); }
+
+      .access-grid .access-card{
+        background: var(--surface); border:1px solid var(--border); color: var(--text);
+        border-radius: 12px; box-shadow: var(--shadow);
+      }
+      .access-grid .access-card i{ color: var(--primary); }
+
+      /* Navbar pieces honor variables */
+      .nav-container{ background: var(--surface); box-shadow: var(--shadow); }
+      .nav-link{ color: var(--text); }
+      .nav-link:after{ background: var(--primary); }
+      .nav-search .search-input{ background:#fff; color: var(--text); border:1px solid var(--border); }
+      body.dark-mode .nav-search .search-input{ background: var(--surface); }
+      .nav-actions .action-button{ color: var(--text); }
+
+      /* Footer remains themed but match borders in modes */
+      .ecommerce-footer .footer-top{ border-bottom:1px solid var(--border); }
+    </style>
+<style id="a11y-home-styles">
+      .accessibility-panel{position:fixed;top:0;right:-380px;width:380px;height:100vh;background-color:var(--surface);box-shadow:-5px 0 15px rgba(0,0,0,0.1);z-index:1000;padding:16px 24px;overflow-y:auto;transition:right .3s ease}
+      .accessibility-panel.open{right:0}
+      .panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+      .panel-title{font-size:1.125rem;font-weight:600;color:var(--text)}
+      .close-panel{background:none;border:none;cursor:pointer;font-size:1.25rem;color:var(--muted)}
+      .panel-section{margin-bottom:18px}
+      .panel-section-title{font-size:1rem;margin-bottom:10px;color:var(--primary);font-weight:600}
+      .option-group{display:flex;flex-direction:column;gap:10px}
+      .option-row{display:flex;align-items:center;justify-content:space-between}
+      .option-label{font-weight:500;min-width:120px;color:var(--text)}
+      .option-controls{display:flex;align-items:center;gap:10px}
+      .font-size-btn{padding:6px 8px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;border-radius:6px;min-width:40px}
+      .font-size-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+      .toggle-switch{position:relative;display:inline-block;width:50px;height:24px}
+      .toggle-switch input{opacity:0;width:0;height:0}
+      .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--muted);transition:.4s;border-radius:24px}
+      .slider:before{position:absolute;content:"";height:16px;width:16px;left:4px;bottom:4px;background:var(--surface);transition:.4s;border-radius:50%}
+      input:checked + .slider{background:var(--primary)}
+      input:checked + .slider:before{transform:translateX(26px)}
+      .layout-select{padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);min-width:120px}
+      .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:999;opacity:0;visibility:hidden;transition:opacity .3s ease}
+      .overlay.active{opacity:1;visibility:visible}
+    </style>
+</head>
+<body>
+    <!-- News Strip Banner -->
+    <div class="news-strip" aria-label="Latest news and announcements">
+        <div class="news-container">
+            <div class="news-scroll">
+                <span class="news-item">🚚 Free shipping on orders over $50</span>
+                <span class="news-item">⭐ New customers get 15% off first purchase</span>
+                <span class="news-item">📱 Download our app for exclusive mobile deals</span>
+                <span class="news-item">🌍 Now shipping to 15+ countries worldwide</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Navigation Bar (reused from Product page) -->
+    <nav class="nav-container" aria-label="Main navigation">
+        <div class="nav-wrapper">
+            <div class="nav-main">
+                <div class="logo-area">
+                    <a href="Home_page.html" class="logo-container">
+                        <div class="logo-image">
+                            <img src="P&AEF_copy.png" alt="Platform logo" height="50px">
+                        </div>
+                        <div class="logo-text">AIDIFY</div>
+                    </a>
+                </div>
+                <button class="mobile-menu-button" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-search">
+                    <form class="search-form" role="search">
+                        <input type="text" class="search-input" placeholder="Search products..." aria-label="Search products">
+                        <button type="submit" class="search-button" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <button class="mobile-menu-button" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="Home_page.html" class="nav-link" data-i18n="nav.home">Home</a></li>
+                    <li><a href="Product.html" class="nav-link" data-i18n="nav.products">Products</a></li>
+                    <li><a href="Categories.html" class="nav-link" data-i18n="nav.categories">Categories</a></li>
+                </ul>
+                <div class="nav-actions" style="margin-left: var(--spacing-6);">
+                    <a href="ContactPage.html" class="action-button" aria-label="Contact support">
+                        <i class="fas fa-headset"></i>
+                    </a>
+                    <button class="action-button lang-switch" aria-haspopup="true" aria-expanded="false" title="Language">
+                      <i class="fas fa-globe"></i>
+                      <span class="lang-badge" style="margin-left:4px; font-weight:700;">EN</span>
+                    </button>
+                    <div class="lang-menu" hidden style="position:absolute; right:140px; top:60px; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow: var(--shadow); padding:6px 0; min-width:120px; z-index:1000;">
+                      <button class="action-button" data-lang="EN" style="width:100%; justify-content:flex-start; padding:8px 12px;">EN — English</button>
+                      <button class="action-button" data-lang="FR" style="width:100%; justify-content:flex-start; padding:8px 12px;">FR — Français</button>
+                    </div>
+                    <a href="userprofile.html" class="action-button" aria-label="User profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <a href="Wishlist.html" class="action-button" aria-label="Wishlist" id="wishlistAction">
+                        <i class="fas fa-heart"></i>
+                        <span class="badge" id="wishlistBadge">0</span>
+                    </a>
+                    <a href="Cart.html" class="action-button" aria-label="Shopping cart" id="cartAction">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge" id="cartBadge">0</span>
+                    </a>
+                    <button class="accessibility-button" id="accessibility-toggle">
+                        <i class="fas fa-universal-access"></i>
+                        <span data-i18n="nav.accessibility">Accessibility</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibility-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Accessibility Settings</h2>
+        <button class="close-panel" aria-label="Close panel">✕</button>
+      </div>
+      <div class="panel-section">
+        <h3 class="panel-section-title">Text & Font</h3>
+        <div class="option-group">
+          <div class="option-row">
+            <span class="option-label">Font Size</span>
+            <div class="option-controls">
+              <button class="font-size-btn" data-size="sm">A-</button>
+              <button class="font-size-btn active" data-size="base">A</button>
+              <button class="font-size-btn" data-size="lg">A+</button>
+              <button class="font-size-btn" data-size="xl">A++</button>
+            </div>
+          </div>
+          <div class="option-row">
+            <span class="option-label">Dyslexia Font</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="dyslexia-toggle"><span class="slider"></span>
+            </label>
+          </div>
+          <div class="option-row">
+            <span class="option-label">Read Scope</span>
+            <select class="layout-select" id="tts-scope">
+              <option value="main">Main content</option>
+              <option value="page">Entire page</option>
+              <option value="selection">Selected text</option>
+            </select>
+          </div>
+          <div class="option-row">
+            <span class="option-label">Auto-read on Load</span>
+            <label class="toggle-switch"><input type="checkbox" id="tts-auto-read"><span class="slider"></span></label>
+          </div>
+          <div class="option-row">
+            <span class="option-label">Text-to-Speech</span>
+            <div class="option-controls">
+              <button class="font-size-btn" id="tts-play" aria-label="Start reading">▶</button>
+              <button class="font-size-btn" id="tts-pause" aria-label="Pause or resume">⏸</button>
+              <button class="font-size-btn" id="tts-stop" aria-label="Stop reading">⏹</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-section">
+        <h3 class="panel-section-title">Color & Contrast</h3>
+        <div class="option-group">
+          <div class="option-row">
+            <span class="option-label">High Contrast</span>
+            <label class="toggle-switch"><input type="checkbox" id="high-contrast-toggle"><span class="slider"></span></label>
+          </div>
+          <div class="option-row">
+            <span class="option-label">Dark Mode</span>
+            <label class="toggle-switch"><input type="checkbox" id="dark-mode-toggle"><span class="slider"></span></label>
+          </div>
+          <div class="option-row">
+            <span class="option-label">Link Highlighting</span>
+            <label class="toggle-switch"><input type="checkbox" id="link-highlight-toggle"><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+      <div class="panel-section">
+        <h3 class="panel-section-title">Layout & Interaction</h3>
+        <div class="option-group">
+          <div class="option-row">
+            <span class="option-label">Grid Layout</span>
+            <select class="layout-select" id="layout-select">
+              <option value="4">4 Columns</option>
+              <option value="3">3 Columns</option>
+              <option value="2">2 Columns</option>
+              <option value="1">1 Column</option>
+            </select>
+          </div>
+          <div class="option-row">
+            <span class="option-label">Large Cursors</span>
+            <label class="toggle-switch"><input type="checkbox" id="large-cursors-toggle"><span class="slider"></span></label>
+          </div>
+          <div class="option-row">
+            <span class="option-label">Reduce Motion</span>
+            <label class="toggle-switch"><input type="checkbox" id="reduce-motion-toggle"><span class="slider"></span></label>
+          </div>
+        </div>
+      </div>
+      <div class="panel-section">
+        <button class="accessibility-button" id="reset-settings" style="width:100%">Reset to Default Settings</button>
+      </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" aria-label="Welcome to AIDIFY">
+        <div class="hero-content">
+            <h1>Welcome to Your Personalized Shopping Experience</h1>
+            <p>Discover products tailored just for you, with accessibility features that make shopping effortless for everyone.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="startShopping()">Start Shopping</button>
+                <button class="btn btn-secondary" onclick="exploreFeatures()">Explore Features</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-elements">
+                <div class="floating-card">🛒</div>
+                <div class="floating-card">⭐</div>
+                <div class="floating-card">🚀</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Products Grid -->
+    <section class="top-products" aria-label="Top products in store">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <p class="section-subtitle">Discover our most popular items loved by customers worldwide</p>
+            <div class="products-grid" id="topProductsGrid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section class="new-arrivals" aria-label="New arrival products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">New Arrivals</h2>
+                <a href="/newarrival.html" class="view-all">View All New Arrivals</a>
+            </div>
+            <div class="new-arrivals-grid" id="newArrivalsGrid">
+                <!-- New arrivals will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalized Recommendations -->
+    <section class="recommendations" aria-label="Personalized recommendations">
+        <div class="container">
+            <h2 class="section-title">Recommended For You</h2>
+            <p class="section-subtitle">Based on your browsing history and preferences</p>
+            <div class="recommendations-grid" id="recommendationsGrid">
+                <!-- Recommendations will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access Section -->
+    <section class="quick-access" aria-label="Quick access features">
+        <div class="container">
+            <div class="access-grid">
+                <div class="access-card" onclick="navigateTo('Cart.html')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Your Cart</h3>
+                    <p>Manage your shopping items</p>
+                </div>
+                <div class="access-card" onclick="navigateTo('userprofile.html#orders')">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Order History</h3>
+                    <p>Track your purchases</p>
+                </div>
+                <div class="access-card" onclick="navigateTo('userprofile.html#settings')">
+                    <i class="fas fa-user-cog"></i>
+                    <h3>Account Settings</h3>
+                    <p>Update your preferences</p>
+                </div>
+                <div class="access-card" onclick="navigateTo('mesage.html')">
+                    <i class="fas fa-comments"></i>
+                    <h3>Support Chat</h3>
+                    <p>Get help instantly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simplified Footer -->
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="container footer-inner" style="display:flex; gap:24px; justify-content:space-between; align-items:flex-start; padding:24px 0; border-top:1px solid var(--border);">
+        <div class="footer-brand" style="max-width:360px;">
+          <a href="Home_page.html" class="logo-container" aria-label="Go to Home" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit;">
+            <div class="logo-image"><img src="P&AEF_copy.png" alt="AIDIFY logo" height="40"></div>
+            <div class="logo-text" style="font-weight:900; letter-spacing:.3px;">AIDIFY</div>
+          </a>
+          <p class="muted" data-i18n="footer.brand.desc" style="margin:10px 0 0;">Quality products curated with care. We aim to deliver value, style and a seamless shopping experience.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation" style="display:grid; grid-template-columns: repeat(3, minmax(160px, 1fr)); gap:18px; flex:1;">
+          <div class="col">
+            <h4 data-i18n="footer.columns.shop">Shop</h4>
+            <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+              <a href="/newarrival.html" data-i18n="footer.links.newArrivals">New arrivals</a>
+              <a href="Categories.html#category=Electronics" data-i18n="footer.links.electronics">Electronics</a>
+              <a href="Categories.html#category=Clothing" data-i18n="footer.links.clothing">Clothing</a>
+              <a href="Categories.html#category=Accessories" data-i18n="footer.links.accessories">Accessories</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.giftCards">Gift cards</a>
+            </div>
+          </div>
+          <div class="col">
+            <h4 data-i18n="footer.columns.help">Help</h4>
+            <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+              <a href="#" aria-disabled="true" data-i18n="footer.links.shipping">Shipping & delivery</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.returns">Returns & exchanges</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.faqs">FAQs</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.trackOrder">Track order</a>
+              <a href="ABOUT.HTML" data-i18n="footer.links.about">About</a>
+              <a href="/ContactPage.html" data-i18n="footer.links.contact">Contact us</a>
+            </div>
+          </div>
+          <div class="col">
+            <h4 data-i18n="footer.columns.legal">Legal</h4>
+            <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+              <a href="#" aria-disabled="true" data-i18n="footer.links.privacy">Privacy policy</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.terms">Terms of service</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.cookiePolicy">Cookie policy</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom" style="border-top:1px solid var(--border);">
+        <div class="container bottom-row" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; flex-wrap:wrap;">
+          <div>© <span id="year"></span> Aidify. <span data-i18n="footer.copyright">All rights reserved.</span></div>
+          <div class="selects" aria-label="Region and currency" style="display:flex; align-items:center; gap:8px;">
+            <label class="visually-hidden" for="region">Region</label>
+            <select id="region"><option>Cameroon</option><option>United States</option><option>Germany</option><option>United Kingdom</option></select>
+            <label class="visually-hidden" for="currency">Currency</label>
+            <select id="currency"><option>USD $</option><option>EUR €</option><option>GBP £</option><option>XAF ₣</option></select>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>document.addEventListener('DOMContentLoaded',function(){var y=document.getElementById('year'); if(y) y.textContent=(new Date()).getFullYear();});</script>
+
+    
+    <!-- Product Modal -->
+    <div class="modal" id="productModal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+    <!-- Add to Home_page.html, userprofile.html, setupstore.html -->
+    <script src="accessibility-manager.js"></script>
+    <script src="shared/navbar.js"></script>
+    <script src="Home_page.js"></script>
+    <script src="i18n.js"></script>
+<script>
+      (function(){
+        function updateWishlistBadge(){ var b=document.getElementById('wishlistBadge'); if(!b) return; try{ var l=JSON.parse(localStorage.getItem('aidify.wishlist')||'[]'); b.textContent=String(l.length);}catch(e){ b.textContent='0'; } }
+        function updateCartBadge(){ var b=document.getElementById('cartBadge'); if(!b) return; try{ var c=JSON.parse(localStorage.getItem('aidify.cart')||'[]'); var t=c.reduce(function(s,i){ return s + (Number(i.qty)||0); },0); b.textContent=String(t);}catch(e){ b.textContent='0'; } }
+        window.addEventListener('storage', function(e){ if(e.key==='aidify.wishlist') updateWishlistBadge(); if(e.key==='aidify.cart') updateCartBadge(); });
+        document.addEventListener('DOMContentLoaded', function(){ updateWishlistBadge(); updateCartBadge(); });
+      })();
+    </script>
+    <script>
+      (function(){
+        // Defer to shared accessibility manager for persistence and application across pages
+        document.addEventListener('DOMContentLoaded', function(){
+          if (window.AIDIFY_ACCESSIBILITY && typeof window.AIDIFY_ACCESSIBILITY.applyAccessibility==='function'){
+            window.AIDIFY_ACCESSIBILITY.applyAccessibility();
+          }
+          // Bind panel toggles
+          var accBtn = document.getElementById('accessibility-toggle');
+          var panel = document.getElementById('accessibility-panel');
+          var closeBtn = document.querySelector('.close-panel');
+          var overlay = document.getElementById('overlay');
+          function toggle(){ if(!panel) return; panel.classList.toggle('open'); overlay.classList.toggle('active'); document.body.style.overflow = panel.classList.contains('open')?'hidden':''; }
+          if (accBtn) accBtn.addEventListener('click', toggle);
+          if (closeBtn) closeBtn.addEventListener('click', toggle);
+          if (overlay) overlay.addEventListener('click', toggle);
+          // Map controls to shared manager
+          function byId(id){ return document.getElementById(id); }
+          var fontBtns = document.querySelectorAll('.font-size-btn');
+          fontBtns.forEach(function(btn){ btn.addEventListener('click', function(){ window.AIDIFY_ACCESSIBILITY.updateSetting('fontSize', btn.dataset.size); fontBtns.forEach(function(b){ b.classList.toggle('active', b===btn); }); }); });
+          var mapToggle = function(id, key){ var el=byId(id); if(!el) return; el.addEventListener('change', function(){ window.AIDIFY_ACCESSIBILITY.updateSetting(key, el.checked); }); };
+          mapToggle('high-contrast-toggle','highContrast');
+          mapToggle('dark-mode-toggle','darkMode');
+          mapToggle('dyslexia-toggle','dyslexiaFont');
+          mapToggle('link-highlight-toggle','linkHighlight');
+          mapToggle('large-cursors-toggle','largeCursors');
+          mapToggle('reduce-motion-toggle','reduceMotion');
+          var layoutSelect = byId('layout-select'); if(layoutSelect){ layoutSelect.addEventListener('change', function(){ window.AIDIFY_ACCESSIBILITY.updateSetting('gridColumns', layoutSelect.value); }); }
+          var ttsScope = byId('tts-scope'); if(ttsScope){ ttsScope.addEventListener('change', function(){ window.AIDIFY_ACCESSIBILITY.updateSetting('ttsScope', ttsScope.value); }); }
+          var ttsAuto = byId('tts-auto-read'); if(ttsAuto){ ttsAuto.addEventListener('change', function(){ window.AIDIFY_ACCESSIBILITY.updateSetting('ttsAutoRead', ttsAuto.checked); }); }
+          var ttsPlay = byId('tts-play'); if(ttsPlay){ ttsPlay.addEventListener('click', function(){ window.AIDIFY_ACCESSIBILITY.tts.speak(); }); }
+          var ttsPause = byId('tts-pause'); if(ttsPause){ ttsPause.addEventListener('click', function(){ window.AIDIFY_ACCESSIBILITY.tts.pauseResume(); }); }
+          var ttsStop = byId('tts-stop'); if(ttsStop){ ttsStop.addEventListener('click', function(){ window.AIDIFY_ACCESSIBILITY.tts.stop(); }); }
+          var resetBtn = document.getElementById('reset-settings'); if(resetBtn){ resetBtn.addEventListener('click', function(){
+            // Reset only accessibility keys by removing them and re-applying
+            ['fontSize','highContrast','darkMode','dyslexiaFont','linkHighlight','largeCursors','reduceMotion','gridColumns','ttsScope','ttsAutoRead'].forEach(function(k){ try{ localStorage.removeItem(k);}catch(e){} });
+            window.AIDIFY_ACCESSIBILITY.applyAccessibility();
+            // Reset UI states
+            document.querySelectorAll('.font-size-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.size==='base'); });
+            ['high-contrast-toggle','dark-mode-toggle','dyslexia-toggle','link-highlight-toggle','large-cursors-toggle','reduce-motion-toggle'].forEach(function(id){ var el=byId(id); if(el) el.checked=false; });
+            if(layoutSelect) layoutSelect.value='4'; if(ttsScope) ttsScope.value='main'; if(ttsAuto) ttsAuto.checked=false;
+            alert('Accessibility settings reset.');
+          }); }
+          // Initialize control states from shared settings
+          var s = window.AIDIFY_ACCESSIBILITY.getSettings();
+          document.querySelectorAll('.font-size-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.size===s.fontSize); });
+          ['high-contrast-toggle','dark-mode-toggle','dyslexia-toggle','link-highlight-toggle','large-cursors-toggle','reduce-motion-toggle'].forEach(function(id){ var el=byId(id); if(el){ var key=id.split('-')[0]; el.checked = s[{high:'highContrast',dark:'darkMode',dyslexia:'dyslexiaFont',link:'linkHighlight',large:'largeCursors',reduce:'reduceMotion'}[key]]; }});
+          if(layoutSelect) layoutSelect.value = s.gridColumns==='auto'?'4':s.gridColumns;
+          if(ttsScope) ttsScope.value = s.ttsScope;
+          if(ttsAuto) ttsAuto.checked = s.ttsAutoRead;
+        });
+      })();
+    </script>
+<script>
+  (function(){
+    function initLang(){
+      var key='aidify.language';
+      var val = localStorage.getItem(key) || 'EN';
+      document.querySelectorAll('.lang-select, #languageFooter').forEach(function(sel){ sel.value = val; sel.addEventListener('change', function(){ localStorage.setItem(key, sel.value); }); });
+    }
+    document.addEventListener('DOMContentLoaded', initLang);
+  })();
+</script>
+</body>
+</html>

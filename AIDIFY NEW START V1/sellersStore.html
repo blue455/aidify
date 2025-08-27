@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIDIFY — Seller Store</title>
+  <link rel="stylesheet" href="sellersStore.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a class="skip-link" href="#app">Skip to content</a>
+
+  <header class="topbar" role="banner">
+    <div class="brand">
+      <button id="menuBtn" class="icon-btn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <a href="Home_page.html" class="logo-container" aria-label="Go to Home">
+        <div class="logo-image">
+          <img src="P&AEF_copy.png" alt="AIDIFY logo" height="50">
+        </div>
+        <div class="logo-text">AIDIFY</div>
+      </a>
+    </div>
+
+    <nav class="top-actions" aria-label="Top actions" style="position:relative;">
+      <button class="pill-btn" data-nav="#/inbox">Inbox <span id="inboxCount" class="badge">0</span></button>
+      <button class="pill-btn" data-nav="#/orders">Orders <span id="ordersCount" class="badge">0</span></button>
+      <button class="icon-btn lang-switch" aria-haspopup="true" aria-expanded="false" title="Language">
+        🌐 <span class="lang-badge" style="margin-left:6px; font-weight:800;">EN</span>
+      </button>
+      <div class="lang-menu" hidden style="position:absolute; right:90px; top:42px; background:#fff; border:1px solid var(--c-border); border-radius:8px; box-shadow: 0 8px 16px rgba(0,0,0,.08); padding:6px 0; min-width:140px; z-index:1000;">
+        <button class="ghost-btn" data-lang="EN" style="width:100%; text-align:left; padding:8px 12px;">EN — English</button>
+        <button class="ghost-btn" data-lang="FR" style="width:100%; text-align:left; padding:8px 12px;">FR — Français</button>
+      </div>
+      <a class="profile-link" href="userprofile.html" aria-label="Profile">
+        <img id="profileAvatar" class="profile-avatar" alt="Profile avatar">
+      </a>
+    </nav>
+  </header>
+
+  <aside id="sidebar" class="sidebar" aria-label="Main">
+    <div class="sidebar-inner">
+      <div class="seller-card" aria-live="polite">
+        <div class="avatar" id="storeAvatar">🛍️</div>
+        <div>
+          <div id="storeName" class="seller-name">Your store isn’t set up</div>
+          <div id="storeSub" class="seller-sub">Let’s get you started</div>
+        </div>
+      </div>
+
+      <ul class="nav-list" role="list">
+        <li><a href="#/dashboard" data-link>Dashboard</a></li>
+        <li><a href="#/create-product" data-link>Create product</a></li>
+        <li><a href="#/products" data-link>Products</a></li>
+        <li><a href="#/orders" data-link>Orders</a></li>
+        <li><a href="#/inbox" data-link>Inbox</a></li>
+        <li><a href="userprofile.html">Profile</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button id="exportBtn" class="ghost-btn">Export data</button>
+        <button id="resetBtn" class="ghost-btn danger">Factory reset</button>
+      </div>
+    </div>
+  </aside>
+
+  <main id="app" class="app" tabindex="-1" role="main"></main>
+
+  
+  
+  <!-- Templates moved here from setupstore -->
+  <template id="tmpl-dashboard">
+    <section class="panel fade-up">
+      <header class="panel-header">
+        <h2>Seller dashboard</h2>
+        <p>Quick stats for your store.</p>
+      </header>
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-products">
+          <div class="kpi-label">Products</div>
+          <div class="kpi-value" id="statProducts">0</div>
+          <canvas class="sparkline" id="sparkProducts" aria-hidden="true"></canvas>
+        </div>
+        <div class="kpi-card kpi-orders">
+          <div class="kpi-label">Orders</div>
+          <div class="kpi-value" id="statOrders">0</div>
+          <canvas class="sparkline" id="sparkOrders" aria-hidden="true"></canvas>
+        </div>
+        <div class="kpi-card kpi-messages">
+          <div class="kpi-label">Messages</div>
+          <div class="kpi-value" id="statMsgs">0</div>
+          <canvas class="sparkline" id="sparkMsgs" aria-hidden="true"></canvas>
+        </div>
+        <div class="kpi-card kpi-revenue">
+          <div class="kpi-label">Revenue</div>
+          <div class="kpi-value" id="statRevenue">$0.00</div>
+          <canvas class="sparkline" id="sparkRevenue" aria-hidden="true"></canvas>
+        </div>
+      </div>
+      <div class="panel-subgrid">
+        <div class="subpanel"><h3>Recent orders</h3><ul id="recentOrders" class="list"></ul></div>
+        <div class="subpanel"><h3>New messages</h3><ul id="recentMsgs" class="list"></ul></div>
+      </div>
+    </section>
+  </template>
+
+  <template id="tmpl-create-product">
+    <section class="panel">
+      <header class="panel-header">
+        <h2>Create a product</h2>
+        <p>Provide complete details. Richer information helps buyers decide faster.</p>
+      </header>
+
+      <form id="productForm" class="grid gap">
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+          <div class="field"><label for="pTitle">Title</label><input id="pTitle" required placeholder="e.g., Wireless Headphones" /></div>
+          <div class="field"><label for="pCategory">Category</label><input id="pCategory" placeholder="e.g., Electronics" /></div>
+          <div class="field"><label for="pBrand">Brand</label><input id="pBrand" placeholder="e.g., Acme" /></div>
+          <div class="field"><label for="pCondition">Condition</label>
+            <select id="pCondition"><option>New</option><option>Used</option><option>Refurbished</option></select>
+          </div>
+          <div class="field"><label for="pSKU">SKU</label><input id="pSKU" placeholder="Stock Keeping Unit" /></div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+          <div class="field"><label for="pPrice">Price</label><input id="pPrice" type="number" min="0" step="0.01" required /></div>
+          <div class="field"><label for="pPriceCompare">Compare at price</label><input id="pPriceCompare" type="number" min="0" step="0.01" placeholder="Optional" /></div>
+          <div class="field"><label for="pStock">Stock quantity</label><input id="pStock" type="number" min="0" step="1" placeholder="e.g., 25" /></div>
+          <div class="field"><label><input type="checkbox" id="pTrackInv" /> Track inventory</label></div>
+          <div class="field"><label for="pTags">Tags</label><input id="pTags" placeholder="comma, separated, tags" /></div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px;">
+          <div class="field"><label for="pWeight">Weight (kg)</label><input id="pWeight" type="number" min="0" step="0.01" /></div>
+          <div class="field"><label for="pLen">Length (cm)</label><input id="pLen" type="number" min="0" step="0.1" /></div>
+          <div class="field"><label for="pWid">Width (cm)</label><input id="pWid" type="number" min="0" step="0.1" /></div>
+          <div class="field"><label for="pHei">Height (cm)</label><input id="pHei" type="number" min="0" step="0.1" /></div>
+        </div>
+
+        <div class="field">
+          <label for="pFiles">Product images</label>
+          <input id="pFiles" type="file" accept="image/*" multiple />
+          <div id="pPreview" class="upload-preview multi"></div>
+          <small style="color:var(--c-muted)">Tip: First image is the primary one. You can reorder, set primary, or remove images below.</small>
+        </div>
+
+        <div class="field full"><label for="pDesc">Description</label><textarea id="pDesc" rows="5" placeholder="Describe features, materials, and usage."></textarea></div>
+
+        <div class="field full"><label for="pSpecs">Specifications (one per line, key: value)</label><textarea id="pSpecs" rows="4" placeholder="Color: Black
+Connectivity: Bluetooth 5.0
+Battery life: 20 hours"></textarea></div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="field"><label for="pSeoTitle">SEO Title</label><input id="pSeoTitle" placeholder="Optional SEO title" /></div>
+          <div class="field"><label for="pSeoDesc">SEO Description</label><input id="pSeoDesc" placeholder="Optional SEO description" /></div>
+        </div>
+
+        <div class="actions">
+          <button class="ghost-btn" id="saveDraftBtn" type="button">Save draft</button>
+          <button class="cta" type="submit">Publish</button>
+        </div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tmpl-products">
+    <section class="panel">
+      <header class="panel-header row">
+        <div><h2>Products</h2><p>All published products from your store.</p></div>
+        <div class="row gap-sm">
+          <input id="searchInput" class="search" placeholder="Search products…" aria-label="Search products" />
+          <select id="filterCategory" aria-label="Filter category"><option value="">All categories</option></select>
+        </div>
+      </header>
+      <div id="productGrid" class="grid cards-grid"></div>
+      <div id="emptyProducts" class="empty" hidden>
+        <p>No products yet. <a href="#/create-product">Create your first product</a>.</p>
+      </div>
+    </section>
+  </template>
+
+  <template id="tmpl-product-details">
+    <section class="panel">
+      <div class="breadcrumb"><a href="#/products">Products</a> / <span id="pdCrumb">…</span></div>
+      <div class="pd-layout">
+        <div class="pd-gallery" id="pdGallery"></div>
+        <div class="pd-info">
+          <h2 id="pdTitle">Title</h2>
+          <div id="pdPrice" class="pd-price"></div>
+          <div id="pdCategory" class="pd-cat"></div>
+          <div id="pdMeta" class="mt" style="color:var(--c-muted)"></div>
+          <div id="pdTags" class="mt"></div>
+          <p id="pdDesc" class="mt"></p>
+          <div id="pdSpecs" class="mt"></div>
+          <div class="row gap-sm mt">
+            <button id="btnAddCart" class="cta">Add to cart</button>
+            <button id="btnBuyNow" class="pill-btn">Buy now</button>
+          </div>
+          <details class="mt">
+            <summary>Message the seller</summary>
+            <form id="msgSellerForm" class="row gap-sm mt-sm">
+              <input id="buyerName" placeholder="Your name" required />
+              <input id="buyerMsg" placeholder="Write a message…" required />
+              <button class="ghost-btn" type="submit">Send</button>
+            </form>
+          </details>
+        </div>
+      </div>
+      <section class="mt">
+        <h3>Related products</h3>
+        <div id="relatedGrid" class="grid cards-grid"></div>
+      </section>
+    </section>
+  </template>
+
+  <template id="tmpl-orders">
+    <section class="panel">
+      <header class="panel-header"><h2>Orders</h2><p>Manage and fulfill incoming orders.</p></header>
+      <table class="table">
+        <thead><tr><th>Order #</th><th>Buyer</th><th>Product</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+    </section>
+  </template>
+
+  <template id="tmpl-order-details">
+    <section class="panel">
+      <div class="breadcrumb"><a href="#/orders" data-link>Orders</a> / <span id="odCrumb">…</span></div>
+      <header class="panel-header row" style="justify-content:space-between; align-items:center;">
+        <div>
+          <h2 id="odTitle">Order</h2>
+          <p id="odMeta" style="color:var(--c-muted)"></p>
+        </div>
+        <div>
+          <span id="odStatus" class="status"></span>
+          <button id="odMarkBtn" class="ghost-btn" style="margin-left:.5rem;">Mark as …</button>
+        </div>
+      </header>
+
+      <div class="panel-subgrid">
+        <div class="subpanel">
+          <h3>Buyer</h3>
+          <div id="odBuyer"></div>
+        </div>
+        <div class="subpanel">
+          <h3>Payment & delivery</h3>
+          <div id="odPayShip"></div>
+        </div>
+      </div>
+
+      <section class="mt">
+        <h3>Items</h3>
+        <table class="table">
+          <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Line total</th></tr></thead>
+          <tbody id="odItems"></tbody>
+        </table>
+      </section>
+
+      <section class="mt" style="max-width:420px; margin-left:auto;">
+        <div class="row" style="justify-content:space-between;">
+          <div>Subtotal</div><div id="odSubtotal" style="font-weight:700;"></div>
+        </div>
+        <div class="row" style="justify-content:space-between;">
+          <div>Shipping</div><div id="odShipping" style="font-weight:700;"></div>
+        </div>
+        <div class="row" style="justify-content:space-between; border-top:1px dashed var(--c-border); padding-top:.5rem; margin-top:.5rem;">
+          <div style="font-weight:800;">Total</div><div id="odTotal" style="font-weight:800;"></div>
+        </div>
+      </section>
+    </section>
+  </template>
+
+  <template id="tmpl-inbox">
+    <section class="panel">
+      <header class="panel-header"><h2>Inbox</h2><p>Messages from potential buyers.</p></header>
+      <ul id="msgList" class="inbox" role="list"></ul>
+    </section>
+  </template>
+
+    <script src="accessibility-manager.js"></script>
+    <script src="shared/cart.js"></script>
+  <script src="sellersStore.js"></script>
+  <script src="accessibility-manager.js"></script>
+    <script src="i18n.js"></script>
+</body>
+</html>

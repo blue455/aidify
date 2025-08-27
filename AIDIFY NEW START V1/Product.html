@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Accessible E-Commerce Navigation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3797a4;
+            --primary-700: #2f8692;
+            --accent: #ffc107;
+            --success: #44bba4;
+            --danger: #ff5a5f;
+            --bg-soft: #fff9f0;
+            --text: #0f0f0f;
+            --muted: #6b7280;
+            --surface: #ffffff;
+            --border: #e5e7eb;
+            --shadow: 0 10px 30px rgba(0,0,0,.06);
+            
+            /* Font sizes for accessibility */
+            --font-sm: 0.875rem;
+            --font-base: 1rem;
+            --font-lg: 1.125rem;
+            --font-xl: 1.25rem;
+            --font-2xl: 1.5rem;
+            
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+
+            /* Layout */
+            --grid-columns: 4;
+            --grid-gap: 1rem;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background-color: var(--surface);
+            line-height: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        /* Focus styles for accessibility */
+        button:focus,
+        input:focus,
+        select:focus,
+        .nav-link:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Navigation bar styles */
+        .nav-container {
+            background-color: var(--surface);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        .nav-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-4) 0;
+        }
+
+        /* Logo area - now more flexible */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            min-width: 200px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text);
+            gap: var(--spacing-3);
+        }
+
+        .logo-image {
+            height: 40px;
+            width: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            font-size: var(--font-xl);
+            white-space: nowrap;
+        }
+
+        /* Main navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-6);
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: var(--spacing-2) 0;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:after,
+        .nav-link:focus:after {
+            width: 100%;
+        }
+
+        /* Search bar */
+        .nav-search {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 var(--spacing-6);
+            position: relative;
+        }
+
+        .search-form {
+            display: flex;
+            width: 100%;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: var(--spacing-3) var(--spacing-4);
+            border: 1px solid var(--border);
+            border-radius: 4px 0 0 4px;
+            font-size: var(--font-base);
+        }
+
+        .search-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: var(--spacing-3) var(--spacing-4);
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .search-button:hover {
+            background-color: var(--primary-700);
+        }
+
+        /* User actions */
+        .nav-actions {
+            display: flex;
+            gap: var(--spacing-4);
+            align-items: center;
+        }
+
+        .action-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text);
+            position: relative;
+            padding: var(--spacing-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .action-button:hover {
+            background-color: var(--bg-soft);
+        }
+
+        .action-button .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--danger);
+            color: white;
+            font-size: var(--font-sm);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Accessibility button */
+        .accessibility-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: var(--spacing-3) var(--spacing-4);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+
+        .accessibility-button:hover {
+            background-color: var(--primary-700);
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text);
+            font-size: var(--font-xl);
+        }
+
+        /* Accessibility panel */
+        .accessibility-panel {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 380px;
+            height: 100vh;
+            background-color: var(--surface);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: var(--spacing-6);
+            overflow-y: auto;
+            transition: right 0.3s ease;
+        }
+
+        .accessibility-panel.open {
+            right: 0;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-6);
+            padding-bottom: var(--spacing-4);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: var(--font-xl);
+            font-weight: 600;
+        }
+
+        .close-panel {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: var(--font-xl);
+            color: var(--muted);
+        }
+
+        .panel-section {
+            margin-bottom: var(--spacing-6);
+        }
+
+        .panel-section-title {
+            font-size: var(--font-lg);
+            margin-bottom: var(--spacing-4);
+            color: var(--primary);
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-4);
+        }
+
+        .option-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .option-label {
+            font-weight: 500;
+            min-width: 120px;
+        }
+
+        .option-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+
+        .font-size-btn {
+            padding: var(--spacing-2) var(--spacing-3);
+            border: 1px solid var(--border);
+            background: none;
+            cursor: pointer;
+            border-radius: 4px;
+            min-width: 40px;
+        }
+
+        .font-size-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .contrast-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid var(--border);
+        }
+
+        .contrast-option.active {
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--muted);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .layout-select {
+            padding: var(--spacing-2) var(--spacing-3);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background-color: var(--surface);
+            color: var(--text);
+            min-width: 120px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Product grid for demonstration */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--grid-gap);
+            margin: var(--spacing-6) 0;
+            padding: 0 var(--spacing-4);
+        }
+
+        .product-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--surface);
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .product-image {
+            background-color: var(--bg-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-info {
+            padding: var(--spacing-4);
+        }
+
+        .product-title {
+            font-size: var(--font-lg);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: var(--font-lg);
+        }
+
+        /* High contrast mode */
+        body.high-contrast {
+            --text: #000000;
+            --surface: #ffffff;
+            --border: #000000;
+            --bg-soft: #f0f0f0;
+            --muted: #444444;
+        }
+
+        body.high-contrast .nav-link:after {
+            background-color: #000000;
+        }
+
+        /* Dark mode */
+        body.dark-mode {
+            --text: #ffffff;
+            --surface: #1a1a1a;
+            --border: #444444;
+            --bg-soft: #2d2d2d;
+            --muted: #aaaaaa;
+            --shadow: 0 10px 30px rgba(0,0,0,.3);
+        }
+
+        /* Dyslexia-friendly font */
+        body.dyslexia-mode {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+        }
+
+        /* Large cursor mode */
+        body.large-cursors button,
+        body.large-cursors a {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="%23000000"/></svg>') 12 12, auto;
+        }
+
+        /* Reduced motion */
+        body.reduce-motion * {
+            transition-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+        }
+
+        /* Link highlighting */
+        body.link-highlight a {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+        }
+
+        /* Product details dialog */
+        .product-dialog { border: 0; border-radius: 16px; width: min(1000px, 96vw); }
+        .product-dialog::backdrop { background: rgba(0,0,0,0.45); }
+        .product-dialog-content { position: relative; background: var(--surface); border-radius: 16px; padding: 0; }
+        .close-dialog { position:absolute; top:8px; right:12px; background:none; border:0; font-size:1.5rem; color: var(--muted); cursor:pointer; }
+        .pd-layout { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px; }
+        .pd-gallery img { width: 100%; border-radius: 8px; }
+        .pd-gallery .thumbs { display:grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 8px; }
+        .product-tags { display:flex; flex-wrap:wrap; gap:6px; }
+        .tag-chip { display:inline-block; border-radius:999px; padding:4px 10px; background: rgba(68,187,164,.12); border:1px solid rgba(68,187,164,.25); font-size: .9em; }
+        .product-meta { display:flex; flex-wrap:wrap; gap:8px; }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .nav-menu {
+                gap: var(--spacing-4);
+            }
+            
+            .nav-search {
+                max-width: 300px;
+            }
+
+            :root {
+                --grid-columns: 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-main {
+                flex-wrap: wrap;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+            }
+            
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--surface);
+                padding: var(--spacing-4);
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-menu.open {
+                display: flex;
+            }
+            
+            .nav-search {
+                order: 3;
+                max-width: 100%;
+                margin: var(--spacing-4) 0 0 0;
+                width: 100%;
+            }
+            
+            .accessibility-panel {
+                width: 100%;
+                right: -100%;
+            }
+
+            :root {
+                --grid-columns: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: var(--font-lg);
+            }
+
+            .logo-area {
+                min-width: auto;
+            }
+
+            :root {
+                --grid-columns: 1;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="product.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-container" aria-label="Main navigation">
+        <div class="nav-wrapper">
+            <div class="nav-main">
+                <!-- Logo area - now more flexible -->
+                <div class="logo-area">
+                    <a href="Home_page.html" class="logo-container">
+                        <div class="logo-image">
+                            <!-- Replace with any logo image -->
+                            <img src="P&AEF_copy.png" alt="Platform logo" height="50px">
+                        </div>
+                        <div class="logo-text">AIDIFY</div>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="nav-search">
+                    <form class="search-form" role="search">
+                        <input type="text" class="search-input" placeholder="Search products..." aria-label="Search products">
+                        <button type="submit" class="search-button" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                                <button class="mobile-menu-button" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Main navigation menu -->
+                <ul class="nav-menu">
+                    <li><a href="Home_page.html" class="nav-link" data-i18n="nav.home">Home</a></li>
+                    <li><a href="Product.html" class="nav-link" data-i18n="nav.products">Products</a></li>
+                    <li><a href="Categories.html" class="nav-link" data-i18n="nav.categories">Categories</a></li>
+                                                        </ul>
+
+                <!-- Search bar moved to left -->
+
+                <!-- User actions -->
+                <div class="nav-actions" style="margin-left: var(--spacing-6);">
+                    <a href="ContactPage.html" class="action-button" aria-label="Contact support">
+                        <i class="fas fa-headset"></i>
+                    </a>
+                    <button class="action-button lang-switch" aria-haspopup="true" aria-expanded="false" title="Language">
+                      <i class="fas fa-globe"></i>
+                      <span class="lang-badge" style="margin-left:4px; font-weight:700;">EN</span>
+                    </button>
+                    <div class="lang-menu" hidden style="position:absolute; right:140px; top:60px; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow: var(--shadow); padding:6px 0; min-width:120px; z-index:1000;">
+                      <button class="action-button" data-lang="EN" style="width:100%; justify-content:flex-start; padding:8px 12px;">EN — English</button>
+                      <button class="action-button" data-lang="FR" style="width:100%; justify-content:flex-start; padding:8px 12px;">FR — Français</button>
+                    </div>
+                    <a href="userprofile.html" class="action-button" aria-label="User profile">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <a href="Wishlist.html" class="action-button" aria-label="Wishlist" id="wishlistAction">
+                        <i class="fas fa-heart"></i>
+                        <span class="badge" id="wishlistBadge">0</span>
+                    </a>
+                    <a href="Cart.html" class="action-button" aria-label="Shopping cart" id="cartAction">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge" id="cartBadge">0</span>
+                    </a>
+                    <button class="accessibility-button" id="accessibility-toggle">
+                        <i class="fas fa-universal-access"></i>
+                        <span data-i18n="nav.accessibility">Accessibility</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibility-panel">
+        <div class="panel-header">
+            <h2 class="panel-title">Accessibility Settings</h2>
+            <button class="close-panel" aria-label="Close panel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="panel-section">
+            <h3 class="panel-section-title">Text & Font</h3>
+            <div class="option-group">
+                <div class="option-row">
+                    <span class="option-label">Font Size</span>
+                    <div class="option-controls">
+                        <button class="font-size-btn" data-size="sm">A-</button>
+                        <button class="font-size-btn active" data-size="base">A</button>
+                        <button class="font-size-btn" data-size="lg">A+</button>
+                        <button class="font-size-btn" data-size="xl">A++</button>
+                    </div>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Dyslexia Font</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="dyslexia-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Read Scope</span>
+                    <select class="layout-select" id="tts-scope">
+                        <option value="main">Main content</option>
+                        <option value="page">Entire page</option>
+                        <option value="selection">Selected text</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Auto-read on Load</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="tts-auto-read">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Text-to-Speech</span>
+                    <div class="option-controls">
+                        <button class="font-size-btn" id="tts-play" aria-label="Start reading">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button class="font-size-btn" id="tts-pause" aria-label="Pause or resume reading">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="font-size-btn" id="tts-stop" aria-label="Stop reading">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3 class="panel-section-title">Color & Contrast</h3>
+            <div class="option-group">
+                <div class="option-row">
+                    <span class="option-label">High Contrast</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="high-contrast-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Dark Mode</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Link Highlighting</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="link-highlight-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3 class="panel-section-title">Layout & Interaction</h3>
+            <div class="option-group">
+                <div class="option-row">
+                    <span class="option-label">Grid Layout</span>
+                    <select class="layout-select" id="layout-select">
+                        <option value="4">4 Columns</option>
+                        <option value="3">3 Columns</option>
+                        <option value="2">2 Columns</option>
+                        <option value="1">1 Column</option>
+                    </select>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Large Cursors</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="large-cursors-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="option-row">
+                    <span class="option-label">Reduce Motion</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="reduce-motion-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <button class="accessibility-button" id="reset-settings" style="width: 100%;">
+                <i class="fas fa-redo"></i>
+                Reset to Default Settings
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Demo content -->
+    <main style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
+        <h1>Welcome to AIDIFY</h1>
+        <p>This is a demonstration of an accessible e-commerce navigation bar with integrated accessibility controls. Try using the accessibility button in the navigation to customize your experience.</p>
+        
+        <h2>Product Showcase</h2>
+        <div class="products-grid" id="productGrid"></div>
+        <div id="emptyProducts" style="display:none; padding: 1rem; color: var(--muted);">No products yet. Published products will appear here.</div>
+
+        <dialog id="productDialog" class="product-dialog">
+            <form method="dialog" class="product-dialog-content">
+                <button class="close-dialog" aria-label="Close">×</button>
+                <div class="pd-layout">
+                    <div class="pd-gallery">
+                        <img id="dlgMainImg" alt="Product image">
+                        <div class="thumbs" id="dlgThumbs"></div>
+                    </div>
+                    <div class="pd-info">
+                        <h2 id="dlgTitle">Title</h2>
+                        <div id="dlgPrice" class="product-price"></div>
+                        <div id="dlgCategory" class="product-category" style="color: var(--muted)"></div>
+                        <div id="dlgMeta" class="product-meta" style="margin-top: .5rem;"></div>
+                        <div id="dlgTags" class="product-tags" style="margin-top:.5rem;"></div>
+                        <p id="dlgDesc" style="margin-top:1rem;"></p>
+                        <div id="dlgSpecs" style="margin-top:1rem;"></div>
+                        <div style="display:flex; gap:.5rem; margin-top:1rem;">
+                            <button type="button" id="dlgAddCart" style="background: var(--primary); color:#fff; border:0; border-radius:8px; padding:10px 14px; cursor:pointer;">Add to cart</button>
+                            <button type="button" id="dlgBuyNow" style="background: var(--accent); color:#000; border:0; border-radius:8px; padding:10px 14px; cursor:pointer;">Buy now</button>
+                            <button type="button" id="dlgWishlist" style="background: transparent; color: var(--primary); border:2px solid var(--primary); border-radius:8px; padding:10px 14px; cursor:pointer;">Add to wishlist</button>
+                        </div>
+                        <details class="mt">
+                          <summary data-i18n="product.message_seller">Message the seller</summary>
+                          <form id="msgSellerForm" class="row gap-sm mt-sm">
+                            <input id="buyerName" data-i18n-placeholder="product.message.name" placeholder="Your name" required />
+                            <input id="buyerMsg" data-i18n-placeholder="product.message.body" placeholder="Write a message…" required />
+                            <button type="submit" class="ghost-btn">Send</button>
+                          </form>
+                        </details>
+                    </div>
+                </div>
+                <section style="padding: 0 16px 16px;">
+                    <h3 data-i18n="product.related">Related products</h3>
+                    <div id="dlgRelatedGrid" class="products-grid" style="--grid-columns:3"></div>
+                </section>
+            </form>
+        </dialog>
+    </main>
+
+    <!-- Simplified Footer (same as Home) -->
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="container footer-inner" style="display:flex; gap:24px; justify-content:space-between; align-items:flex-start; padding:24px 0; border-top:1px solid var(--border);">
+        <div class="footer-brand" style="max-width:360px;">
+          <a href="Home_page.html" class="logo-container" aria-label="Go to Home" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit;">
+            <div class="logo-image"><img src="P&AEF_copy.png" alt="AIDIFY logo" height="40"></div>
+            <div class="logo-text" style="font-weight:900; letter-spacing:.3px;">AIDIFY</div>
+          </a>
+          <p class="muted" data-i18n="footer.brand.desc" style="margin:10px 0 0;">Quality products curated with care. We aim to deliver value, style and a seamless shopping experience.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation" style="display:grid; grid-template-columns: repeat(3, minmax(160px, 1fr)); gap:18px; flex:1;">
+          <div class="col">
+            <h4 data-i18n="footer.columns.shop">Shop</h4>
+            <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+              <a href="/newarrival.html" data-i18n="footer.links.newArrivals">New arrivals</a>
+              <a href="Categories.html#category=Electronics" data-i18n="footer.links.electronics">Electronics</a>
+              <a href="Categories.html#category=Clothing" data-i18n="footer.links.clothing">Clothing</a>
+              <a href="Categories.html#category=Accessories" data-i18n="footer.links.accessories">Accessories</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.giftCards">Gift cards</a>
+            </div>
+          </div>
+          <div class="col">
+            <h4 data-i18n="footer.columns.help">Help</h4>
+            <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+              <a href="#" aria-disabled="true" data-i18n="footer.links.shipping">Shipping & delivery</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.returns">Returns & exchanges</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.faqs">FAQs</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.trackOrder">Track order</a>
+              <a href="ABOUT.HTML" data-i18n="footer.links.about">About</a>
+              <a href="/ContactPage.html" data-i18n="footer.links.contact">Contact us</a>
+            </div>
+          </div>
+          <div class="col">
+            <h4 data-i18n="footer.columns.legal">Legal</h4>
+            <div class="links" style="display:grid; gap:8px; margin-top:8px;">
+              <a href="#" aria-disabled="true" data-i18n="footer.links.privacy">Privacy policy</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.terms">Terms of service</a>
+              <a href="#" aria-disabled="true" data-i18n="footer.links.cookiePolicy">Cookie policy</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom" style="border-top:1px solid var(--border);">
+        <div class="container bottom-row" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; flex-wrap:wrap;">
+          <div>© <span id="year"></span> Aidify. <span data-i18n="footer.copyright">All rights reserved.</span></div>
+          <div class="selects" aria-label="Region and currency" style="display:flex; align-items:center; gap:8px;">
+            <label class="visually-hidden" for="region">Region</label>
+            <select id="region"><option>Cameroon</option><option>United States</option><option>Germany</option><option>United Kingdom</option></select>
+            <label class="visually-hidden" for="currency">Currency</label>
+            <select id="currency"><option>USD $</option><option>EUR €</option><option>GBP £</option><option>XAF ₣</option></select>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+/*
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const accessibilityToggle = document.getElementById('accessibility-toggle');
+            const accessibilityPanel = document.getElementById('accessibility-panel');
+            const closePanel = document.querySelector('.close-panel');
+            const overlay = document.getElementById('overlay');
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const navMenu = document.querySelector('.nav-menu');
+            const fontSizeButtons = document.querySelectorAll('.font-size-btn');
+            const highContrastToggle = document.getElementById('high-contrast-toggle');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const dyslexiaToggle = document.getElementById('dyslexia-toggle');
+            const linkHighlightToggle = document.getElementById('link-highlight-toggle');
+            const largeCursorsToggle = document.getElementById('large-cursors-toggle');
+            const reduceMotionToggle = document.getElementById('reduce-motion-toggle');
+            const layoutSelect = document.getElementById('layout-select');
+
+            // TTS controls
+            const ttsScopeSelect = document.getElementById('tts-scope');
+            const ttsAutoReadToggle = document.getElementById('tts-auto-read');
+            const ttsPlayButton = document.getElementById('tts-play');
+            const ttsPauseButton = document.getElementById('tts-pause');
+            const ttsStopButton = document.getElementById('tts-stop');
+
+            const resetSettingsButton = document.getElementById('reset-settings');
+
+            // Toggle accessibility panel
+            function toggleAccessibilityPanel() {
+                accessibilityPanel.classList.toggle('open');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = accessibilityPanel.classList.contains('open') ? 'hidden' : '';
+            }
+
+            // Toggle mobile menu
+            function toggleMobileMenu() {
+                navMenu.classList.toggle('open');
+            }
+
+            // Change font size
+            function changeFontSize(size) {
+                document.documentElement.style.fontSize = 
+                    size === 'sm' ? '14px' : 
+                    size === 'base' ? '16px' : 
+                    size === 'lg' ? '18px' : '20px';
+                
+                // Update active button
+                fontSizeButtons.forEach(btn => {
+                    if (btn.dataset.size === size) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                // Save preference
+                localStorage.setItem('fontSize', size);
+            }
+
+            // Toggle high contrast mode
+            function toggleHighContrast() {
+                document.body.classList.toggle('high-contrast');
+                localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+            }
+
+            // Toggle dark mode
+            function toggleDarkMode() {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            }
+
+            // Toggle dyslexia-friendly font
+            function toggleDyslexiaFont() {
+                document.body.classList.toggle('dyslexia-mode');
+                localStorage.setItem('dyslexiaFont', document.body.classList.contains('dyslexia-mode'));
+            }
+
+            // Toggle link highlighting
+            function toggleLinkHighlight() {
+                document.body.classList.toggle('link-highlight');
+                localStorage.setItem('linkHighlight', document.body.classList.contains('link-highlight'));
+            }
+
+            // Toggle large cursors
+            function toggleLargeCursors() {
+                document.body.classList.toggle('large-cursors');
+                localStorage.setItem('largeCursors', document.body.classList.contains('large-cursors'));
+            }
+
+            // Toggle reduced motion
+            function toggleReduceMotion() {
+                document.body.classList.toggle('reduce-motion');
+                localStorage.setItem('reduceMotion', document.body.classList.contains('reduce-motion'));
+            }
+
+            // Change layout
+            function changeLayout(columns) {
+                document.documentElement.style.setProperty('--grid-columns', columns);
+                localStorage.setItem('gridColumns', columns);
+            }
+
+            // ------------------------------
+            // Text-to-Speech engine & helpers
+            // ------------------------------
+            const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
+            let currentUtterance = null;
+
+            function getTTSTextByScope(scope) {
+                try {
+                    if (scope === 'selection') {
+                        const sel = window.getSelection().toString();
+                        return sel && sel.trim().length ? sel.trim() : '';
+                    }
+                    if (scope === 'page') {
+                        return document.body ? document.body.innerText : '';
+                    }
+                    // default to main
+                    const container = document.querySelector('main') || document.body;
+                    return container ? container.innerText : '';
+                } catch (e) {
+                    return '';
+                }
+            }
+
+            function ttsSpeakFromScope() {
+                if (!synth) {
+                    alert("Your browser doesn't support text-to-speech functionality.");
+                    return;
+                }
+                const scope = (ttsScopeSelect && ttsScopeSelect.value) || localStorage.getItem('ttsScope') || 'main';
+                const text = getTTSTextByScope(scope);
+                if (!text || !text.trim()) {
+                    alert(scope === 'selection' ? 'No text is selected to read.' : 'No readable content found.');
+                    return;
+                }
+                // Stop any ongoing speech
+                synth.cancel();
+                currentUtterance = new SpeechSynthesisUtterance(text);
+                // Persist language if needed or keep default
+                currentUtterance.onend = () => { currentUtterance = null; };
+                synth.speak(currentUtterance);
+            }
+
+            function ttsPauseResume() {
+                if (!synth) return;
+                if (synth.paused) {
+                    synth.resume();
+                } else if (synth.speaking) {
+                    synth.pause();
+                }
+            }
+
+            function ttsStop() {
+                if (!synth) return;
+                synth.cancel();
+                currentUtterance = null;
+            }
+
+            // Reset all settings to default
+            function resetSettings() {
+                // Reset font size
+                changeFontSize('base');
+                
+                // Uncheck all toggles
+                highContrastToggle.checked = false;
+                darkModeToggle.checked = false;
+                dyslexiaToggle.checked = false;
+                linkHighlightToggle.checked = false;
+                largeCursorsToggle.checked = false;
+                reduceMotionToggle.checked = false;
+                if (ttsAutoReadToggle) ttsAutoReadToggle.checked = false;
+                if (ttsScopeSelect) ttsScopeSelect.value = 'main';
+                
+                // Reset layout
+                layoutSelect.value = '4';
+                changeLayout('4');
+                
+                // Remove all classes
+                document.body.classList.remove('high-contrast', 'dark-mode', 'dyslexia-mode', 
+                                              'link-highlight', 'large-cursors', 'reduce-motion');
+                
+                // Stop any ongoing TTS
+                ttsStop();
+
+                // Clear local storage
+                localStorage.clear();
+                
+                alert('All settings have been reset to default.');
+            }
+
+            // Load saved preferences
+            function loadPreferences() {
+                // Font size
+                const savedFontSize = localStorage.getItem('fontSize');
+                if (savedFontSize) changeFontSize(savedFontSize);
+                
+                // High contrast
+                if (localStorage.getItem('highContrast') === 'true') {
+                    highContrastToggle.checked = true;
+                    document.body.classList.add('high-contrast');
+                }
+                
+                // Dark mode
+                if (localStorage.getItem('darkMode') === 'true') {
+                    darkModeToggle.checked = true;
+                    document.body.classList.add('dark-mode');
+                }
+                
+                // Dyslexia font
+                if (localStorage.getItem('dyslexiaFont') === 'true') {
+                    dyslexiaToggle.checked = true;
+                    document.body.classList.add('dyslexia-mode');
+                }
+                
+                // Link highlighting
+                if (localStorage.getItem('linkHighlight') === 'true') {
+                    linkHighlightToggle.checked = true;
+                    document.body.classList.add('link-highlight');
+                }
+                
+                // Large cursors
+                if (localStorage.getItem('largeCursors') === 'true') {
+                    largeCursorsToggle.checked = true;
+                    document.body.classList.add('large-cursors');
+                }
+                
+                // Reduced motion
+                if (localStorage.getItem('reduceMotion') === 'true') {
+                    reduceMotionToggle.checked = true;
+                    document.body.classList.add('reduce-motion');
+                }
+                
+                // Grid layout
+                const savedGridColumns = localStorage.getItem('gridColumns');
+                if (savedGridColumns) {
+                    layoutSelect.value = savedGridColumns;
+                    changeLayout(savedGridColumns);
+                }
+
+                // TTS prefs
+                const savedScope = localStorage.getItem('ttsScope');
+                if (savedScope && ttsScopeSelect) ttsScopeSelect.value = savedScope;
+                const savedAutoRead = localStorage.getItem('ttsAutoRead') === 'true';
+                if (ttsAutoReadToggle) ttsAutoReadToggle.checked = savedAutoRead;
+            }
+
+            // Event listeners
+            accessibilityToggle.addEventListener('click', toggleAccessibilityPanel);
+            closePanel.addEventListener('click', toggleAccessibilityPanel);
+            overlay.addEventListener('click', toggleAccessibilityPanel);
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+            // Font size buttons
+            fontSizeButtons.forEach(button => {
+                if (button.dataset.size) {
+                    button.addEventListener('click', () => {
+                        changeFontSize(button.dataset.size);
+                    });
+                }
+            });
+
+            // Toggle switches
+            highContrastToggle.addEventListener('change', toggleHighContrast);
+            darkModeToggle.addEventListener('change', toggleDarkMode);
+            dyslexiaToggle.addEventListener('change', toggleDyslexiaFont);
+            linkHighlightToggle.addEventListener('change', toggleLinkHighlight);
+            largeCursorsToggle.addEventListener('change', toggleLargeCursors);
+            reduceMotionToggle.addEventListener('change', toggleReduceMotion);
+
+            // Layout select
+            layoutSelect.addEventListener('change', () => {
+                changeLayout(layoutSelect.value);
+            });
+
+            // TTS: persist preferences and control playback
+            if (ttsScopeSelect) {
+                ttsScopeSelect.addEventListener('change', () => {
+                    localStorage.setItem('ttsScope', ttsScopeSelect.value);
+                });
+            }
+            if (ttsAutoReadToggle) {
+                ttsAutoReadToggle.addEventListener('change', () => {
+                    localStorage.setItem('ttsAutoRead', ttsAutoReadToggle.checked);
+                });
+            }
+            if (ttsPlayButton) {
+                ttsPlayButton.addEventListener('click', ttsSpeakFromScope);
+            }
+            if (ttsPauseButton) {
+                ttsPauseButton.addEventListener('click', ttsPauseResume);
+            }
+            if (ttsStopButton) {
+                ttsStopButton.addEventListener('click', ttsStop);
+            }
+
+            // Reset settings button
+            resetSettingsButton.addEventListener('click', resetSettings);
+
+            // Close panel with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && accessibilityPanel.classList.contains('open')) {
+                    toggleAccessibilityPanel();
+                }
+            });
+
+            // Load saved preferences on page load
+            loadPreferences();
+
+            // Auto-read current page based on preference
+            if (localStorage.getItem('ttsAutoRead') === 'true') {
+                // Defer a bit to ensure layout is ready
+                setTimeout(() => {
+                    ttsSpeakFromScope();
+                }, 300);
+            }
+
+            // Render published products from localStorage (persist across reloads)
+            function escapeHTML(s) {
+                return (s || '').toString().replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[m]));
+            }
+            function getPublishedProducts() {
+                try {
+                    const all = JSON.parse(localStorage.getItem('aidify.products')) || [];
+                    return all.filter(p => p && p.status === 'published');
+                } catch (e) { return []; }
+            }
+            function cardProduct(p) {
+                const img = (p.images && p.images[0]) ? p.images[0] : '';
+                const title = escapeHTML(p.title || 'Untitled');
+                const desc = escapeHTML(p.description || '');
+                const price = new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(Number(p.price||0));
+                const pid = escapeHTML(p.id || '');
+                return `
+                    <div class="product-card" data-id="${pid}" style="cursor:pointer;">
+                        <div class="product-image">
+                            ${img ? `<img src="${img}" alt="${title}" style="max-height: 100%; max-width: 100%; object-fit: contain;">` : `<i class=\"fas fa-image\" style=\"font-size: 3rem; color: var(--muted);\"></i>`}
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${title}</h3>
+                            ${desc ? `<p>${desc}</p>` : ''}
+                            <p class="product-price">${price}</p>
+                        </div>
+                    </div>`;
+            }
+            function drawProducts() {
+                const grid = document.getElementById('productGrid');
+                const empty = document.getElementById('emptyProducts');
+                if (!grid) return;
+                const prods = getPublishedProducts();
+                if (!prods.length) {
+                    grid.innerHTML = '';
+                    if (empty) empty.style.display = 'block';
+                    return;
+                }
+                if (empty) empty.style.display = 'none';
+                grid.innerHTML = prods
+                    .sort((a,b)=> (b.createdAt||0) - (a.createdAt||0))
+                    .map(cardProduct)
+                    .join('');
+            }
+            drawProducts();
+
+            // Product details interactions
+            const productDialog = document.getElementById('productDialog');
+            const dlgCloseBtn = document.querySelector('.close-dialog');
+            const dlgRelatedGridEl = document.getElementById('dlgRelatedGrid');
+            if (dlgRelatedGridEl) {
+                dlgRelatedGridEl.addEventListener('click', (e)=>{
+                    const card = e.target.closest('.product-card');
+                    if (!card) return;
+                    const id = card.getAttribute('data-id');
+                    if (id) openProductDialog(id);
+                });
+            }
+
+            function addToCart(p){
+                try{
+                    const key='aidify.cart';
+                    const cart = JSON.parse(localStorage.getItem(key) || '[]');
+                    const ex = cart.find(i=>i.id===p.id);
+                    if (ex) ex.qty = (ex.qty||1) + 1; else cart.push({ id:p.id, qty:1, price:p.price, title:p.title });
+                    localStorage.setItem(key, JSON.stringify(cart));
+                    alert('Added to cart.');
+                }catch(e){ alert('Could not add to cart.'); }
+            }
+            function toggleWishlist(productId, btn){
+                const key='aidify.wishlist';
+                const list = JSON.parse(localStorage.getItem(key) || '[]');
+                const idx = list.indexOf(productId);
+                if (idx>=0){ list.splice(idx,1); btn.textContent='Add to wishlist'; }
+                else { list.push(productId); btn.textContent='Remove from wishlist'; }
+                localStorage.setItem(key, JSON.stringify(list));
+            }
+            function renderRelated(current){
+                const grid = document.getElementById('dlgRelatedGrid');
+                const all = getPublishedProducts();
+                const rel = all.filter(x=>x.id!==current.id && x.category===current.category).slice(0,6);
+                grid.innerHTML = rel.map(cardProduct).join('');
+            }
+            function openProductDialog(id){
+                const all = getPublishedProducts();
+                const p = all.find(x=>x.id===id);
+                if (!p) return;
+                const main = document.getElementById('dlgMainImg');
+                const thumbs = document.getElementById('dlgThumbs');
+                const titleEl = document.getElementById('dlgTitle');
+                const priceEl = document.getElementById('dlgPrice');
+                const catEl = document.getElementById('dlgCategory');
+                const metaEl = document.getElementById('dlgMeta');
+                const tagsEl = document.getElementById('dlgTags');
+                const descEl = document.getElementById('dlgDesc');
+                const specsEl = document.getElementById('dlgSpecs');
+                
+                main.src = (p.images && p.images[0]) || '';
+                main.alt = p.title || '';
+                thumbs.innerHTML = '';
+                (p.images||[]).forEach((src,i)=>{
+                    const t = document.createElement('img'); t.src = src; t.alt = `thumbnail ${i+1}`; t.style.cursor='pointer';
+                    t.addEventListener('click', ()=> main.src = src);
+                    thumbs.appendChild(t);
+                });
+                titleEl.textContent = p.title || 'Untitled';
+                const priceLabel = (p.priceCompare && p.priceCompare>p.price) ? `${new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(Number(p.price||0))} <s style="color:var(--muted)">${new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(Number(p.priceCompare||0))}</s>` : new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(Number(p.price||0));
+                priceEl.innerHTML = priceLabel;
+                catEl.textContent = p.category || 'General';
+                const metaParts = [];
+                if (p.brand) metaParts.push(`Brand: ${escapeHTML(p.brand)}`);
+                if (p.condition) metaParts.push(`Condition: ${escapeHTML(p.condition)}`);
+                if (p.sku) metaParts.push(`SKU: ${escapeHTML(p.sku)}`);
+                if (p.stock) metaParts.push(`In stock: ${String(p.stock)}`);
+                if (p.weight) metaParts.push(`Weight: ${String(p.weight)} kg`);
+                const dims = [p.length,p.width,p.height].filter(Boolean);
+                if (dims.length) metaParts.push(`Dimensions: ${[p.length,p.width,p.height].filter(Boolean).join(' × ')} cm`);
+                metaEl.innerHTML = metaParts.join(' · ');
+                tagsEl.innerHTML = (p.tags && p.tags.length) ? p.tags.map(t=>`<span class="tag-chip">#${escapeHTML(t)}</span>`).join(' ') : '';
+                descEl.textContent = p.description || '';
+                specsEl.innerHTML = '';
+                if (p.specs && p.specs.length){ const ul=document.createElement('ul'); ul.style.paddingLeft='18px'; p.specs.forEach(s=>{ const li=document.createElement('li'); li.textContent = `${s.key}: ${s.value}`; ul.appendChild(li); }); specsEl.appendChild(ul); }
+
+                const addBtn = document.getElementById('dlgAddCart');
+                const buyBtn = document.getElementById('dlgBuyNow');
+                const wishBtn = document.getElementById('dlgWishlist');
+                addBtn.onclick = ()=> addToCart(p);
+                buyBtn.onclick = ()=> { addToCart(p); alert('Proceeding to checkout...'); };
+                const wish = JSON.parse(localStorage.getItem('aidify.wishlist')||'[]');
+                wishBtn.textContent = (wish.includes(p.id) ? 'Remove from wishlist' : 'Add to wishlist');
+                wishBtn.onclick = ()=> toggleWishlist(p.id, wishBtn);
+
+                renderRelated(p);
+                productDialog.showModal();
+            }
+            dlgCloseBtn.addEventListener('click', ()=> productDialog.close());
+            productDialog.addEventListener('click', (e)=>{
+                const content = document.querySelector('.product-dialog-content');
+                const r = content.getBoundingClientRect();
+                if (e.clientX<r.left || e.clientX>r.right || e.clientY<r.top || e.clientY>r.bottom){ productDialog.close(); }
+            });
+
+            const gridEl = document.getElementById('productGrid');
+            gridEl.addEventListener('click', (e)=>{
+                const card = e.target.closest('.product-card');
+                if (!card) return;
+                const id = card.getAttribute('data-id');
+                if (id) openProductDialog(id);
+            });
+        });
+    */
+    </script>
+    <script src="accessibility-manager.js"></script>
+    <script src="shared/navbar.js"></script>
+    <script src="product.js"></script>
+    <script src="i18n.js"></script>
+</body>
+</html>

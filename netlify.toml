@@ -1,0 +1,15 @@
+[build]
+  publish = "AIDIFY NEW START V1"
+  command = ""
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://REPLACE_WITH_BACKEND_URL/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/uploads/*"
+  to = "https://REPLACE_WITH_BACKEND_URL/uploads/:splat"
+  status = 200
+  force = true

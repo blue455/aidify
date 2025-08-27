@@ -1,0 +1,188 @@
+
+body {
+    font-family: 'Segoe UI', 'Montserrat', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(120deg, #f8fafc 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-animated {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+    animation: float 8s ease-in-out infinite;
+}
+.shape1 {
+    width: 180px; height: 180px;
+    background: linear-gradient(135deg, #007bff 60%, #00c6ff 100%);
+    top: 8%; left: 5%;
+    animation-delay: 0s;
+}
+.shape2 {
+    width: 120px; height: 120px;
+    background: linear-gradient(135deg, #ff6ec4 60%, #7873f5 100%);
+    top: 70%; left: 80%;
+    animation-delay: 2s;
+}
+.shape3 {
+    width: 90px; height: 90px;
+    background: linear-gradient(135deg, #f7971e 60%, #ffd200 100%);
+    top: 60%; left: 10%;
+    animation-delay: 4s;
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.08); }
+}
+
+.container {
+    background: #fff;
+    padding: 2.5rem 2rem 2rem 2rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60,72,88,0.12);
+    width: 370px;
+    max-width: 95vw;
+    transition: box-shadow 0.2s;
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    background: #fff;
+    padding: 2.5rem 2rem 2rem 2rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60,72,88,0.12);
+    width: 370px;
+    max-width: 95vw;
+    transition: box-shadow 0.2s;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 0.5px;
+}
+
+.row-flex {
+    display: flex;
+    gap: 0.7rem;
+}
+.row-flex input {
+    flex: 1;
+}
+
+input,
+select#country {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    font-size: 1rem;
+    background: #f8fafc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+input:focus,
+select#country:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px #e3f0ff;
+}
+/* custom dropdown arrow */
+select#country {
+    background-image: linear-gradient(45deg, transparent 50%, #007bff 50%),
+                      linear-gradient(135deg, #007bff 50%, transparent 50%),
+                      linear-gradient(to right, #e2e8f0, #e2e8f0);
+    background-position: calc(100% - 20px) calc(50% - 4px), calc(100% - 15px) calc(50% - 4px), calc(100% - 2.4rem) 50%;
+    background-size: 5px 5px, 5px 5px, 1px 60%;
+    background-repeat: no-repeat;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 0.85rem;
+    margin-top: 0.7rem;
+    background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.primary-btn:hover {
+    background: linear-gradient(90deg, #0056b3 60%, #0096c7 100%);
+    box-shadow: 0 4px 16px rgba(0,123,255,0.13);
+}
+
+.secondary-btn {
+    width: 100%;
+    padding: 0.85rem;
+    margin-top: 0.7rem;
+    background: #f1f5f9;
+    color: #222;
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    font-size: 1.08rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+.secondary-btn:hover {
+    background: #e2e8f0;
+    border-color: #007bff;
+}
+
+.bottom-link {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+}
+.login-link {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 0.3rem;
+    transition: color 0.2s;
+}
+.login-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.forgot-link {
+    display: block;
+    margin-top: 0.7rem;
+    text-align: right;
+    color: #007bff;
+    font-size: 0.98rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.forgot-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}

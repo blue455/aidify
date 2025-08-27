@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AIDIFY — User Profile</title>
+  <link rel="stylesheet" href="userprofile.css" />
+</head>
+<body>
+  <!-- App Shell -->
+  <div id="app" class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Primary">
+      <div class="brand">
+            <a href="Home_page.html" class="logo-container" aria-label="Go to Home">
+              <div class="logo-image">
+                <img src="P&AEF_copy.png" alt="AIDIFY logo" height="50" />
+              </div>
+              <div class="logo-text">AIDIFY</div>
+            </a>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-link active" data-route="overview" aria-current="page">Dashboard</button>
+        <button class="nav-link" data-route="orders">Orders</button>
+        <button class="nav-link" data-route="wishlist">Wishlist</button>
+        <button class="nav-link" data-route="cart">Cart</button>
+        <button class="nav-link" data-route="payments">Payments</button>
+        <button class="nav-link" data-route="notifications">Notifications</button>
+        <button class="nav-link" data-route="rewards">Rewards</button>
+        <button class="nav-link" data-route="reviews">Reviews</button>
+                <button class="nav-link" data-route="support">Support</button>
+        <a class="nav-link" href="sellersStore.html">View Store</a>
+        <button class="nav-link" id="setupStoreBtn">Setup Store</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="openSettings" class="settings-btn" aria-controls="settingsPanel" aria-expanded="false">
+          Settings
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main" id="main" tabindex="-1">
+      <!-- Top bar -->
+      <header class="topbar">
+        <button id="goBackBtn" class="link" type="button" aria-label="Go back">← Go Back</button>
+        <div class="profile-mini">
+          <img id="miniAvatar" class="avatar-sm" src="assets/default-avatar.png" alt="Your avatar" />
+          <div class="mini-meta">
+            <div id="miniName" class="mini-name">Guest User</div>
+            <div id="miniEmail" class="mini-email">guest@example.com</div>
+          </div>
+        </div>
+        <div class="meta-right">
+          <div class="pill" id="pillCurrency">USD</div>
+          <div class="pill" id="pillLanguage">EN</div>
+          <div class="pill" id="pillCart">Cart: 0</div>
+          <div class="pill" id="pillWishlist">Wishlist: 0</div>
+        </div>
+      </header>
+
+      <!-- Views -->
+      <section id="view-overview" class="view visible" aria-labelledby="h-overview">
+        <h1 id="h-overview">Your Dashboard</h1>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">Profile</div>
+            <div class="profile-card">
+              <img id="heroAvatar" class="avatar-lg" src="assets/default-avatar.png" alt="Profile avatar" />
+              <div class="pc-meta">
+                <div id="heroName" class="title">Guest User</div>
+                <div id="heroEmail" class="subtle">guest@example.com</div>
+                <div id="heroPhone" class="subtle">—</div>
+                <div id="heroAddress" class="subtle">—</div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn ghost" id="settingsFromOverview">Manage in Settings</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Wallet & Rewards</div>
+            <ul class="stats">
+              <li><span>Wallet Balance</span><strong id="statBalance">$0.00</strong></li>
+              <li><span>Rewards Points</span><strong id="statPoints">0</strong></li>
+              <li><span>Tier</span><strong id="statTier">Bronze</strong></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Quick Links</div>
+            <div class="quick-links">
+              <button class="link" data-route="orders">Track Orders</button>
+              <button class="link" data-route="wishlist">View Wishlist</button>
+              <button class="link" data-route="cart">Go to Cart</button>
+              <button class="link" data-route="payments">Payment Methods</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt">
+          <div class="card-title">Recent Orders</div>
+          <div id="recentOrders" class="table-wrap" role="region" aria-label="Recent orders"></div>
+        </div>
+      </section>
+
+      <section id="view-orders" class="view" aria-labelledby="h-orders">
+        <h1 id="h-orders">Orders</h1>
+        <div class="toolbar">
+          <label>Filter:
+            <select id="orderFilter">
+              <option value="all">All</option>
+              <option value="open">Open</option>
+              <option value="paid">Paid</option>
+              <option value="shipped">Shipped</option>
+            </select>
+          </label>
+        </div>
+        <div id="ordersTable" class="table-wrap" role="region" aria-label="Orders table"></div>
+      </section>
+
+      <section id="view-wishlist" class="view" aria-labelledby="h-wishlist">
+        <h1 id="h-wishlist">Wishlist</h1>
+        <div id="wishlistGrid" class="grid-4"></div>
+      </section>
+
+      <section id="view-cart" class="view" aria-labelledby="h-cart">
+        <h1 id="h-cart">Cart</h1>
+        <div id="cartTable" class="table-wrap"></div>
+        <div id="cartSummary" class="card mt"></div>
+      </section>
+
+      <section id="view-payments" class="view" aria-labelledby="h-payments">
+        <h1 id="h-payments">Payment Methods</h1>
+        <div class="card">
+          <div class="card-title">Saved Cards</div>
+          <div id="cardsList" class="cards-list"></div>
+          <details class="mt">
+            <summary>Add New Card</summary>
+            <form id="addCardForm" class="form row" autocomplete="off">
+              <label class="col">
+                Cardholder
+                <input id="cardholder" required />
+              </label>
+              <label class="col">
+                Card Number
+                <input id="cardnumber" inputmode="numeric" pattern="[0-9\s]{12,19}" placeholder="•••• •••• •••• ••••" required />
+              </label>
+              <label class="col sm">
+                Expiry (MM/YY)
+                <input id="cardexp" placeholder="MM/YY" required />
+              </label>
+              <label class="col sm">
+                CVC
+                <input id="cardcvc" inputmode="numeric" maxlength="4" required />
+              </label>
+              <div class="col">
+                <button class="btn" type="submit">Save Card</button>
+              </div>
+            </form>
+          </details>
+        </div>
+      </section>
+
+      <section id="view-notifications" class="view" aria-labelledby="h-notifications">
+        <h1 id="h-notifications">Notifications</h1>
+        <div class="card">
+          <div class="card-title">Preferences</div>
+          <form id="notifForm" class="form">
+            <label class="switch">
+              <input type="checkbox" id="notifOrders" />
+              <span>Order updates</span>
+            </label>
+            <label class="switch">
+              <input type="checkbox" id="notifPromos" />
+              <span>Promotions</span>
+            </label>
+            <label class="switch">
+              <input type="checkbox" id="notifWishlist" />
+              <span>Wishlist stock/price alerts</span>
+            </label>
+            <button class="btn mt" type="submit">Save Preferences</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="view-rewards" class="view" aria-labelledby="h-rewards">
+        <h1 id="h-rewards">Rewards</h1>
+        <div class="card">
+          <div class="card-title">Your Progress</div>
+          <ul class="stats">
+            <li><span>Points</span><strong id="rwPoints">0</strong></li>
+            <li><span>Tier</span><strong id="rwTier">Bronze</strong></li>
+            <li><span>Next Tier At</span><strong id="rwNextTier">1000 pts</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="view-reviews" class="view" aria-labelledby="h-reviews">
+        <h1 id="h-reviews">Your Reviews</h1>
+        <div id="reviewsList" class="reviews"></div>
+      </section>
+
+      
+      <section id="view-support" class="view" aria-labelledby="h-support">
+        <h1 id="h-support">Support</h1>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">Open a Ticket</div>
+            <form id="supportForm" class="form">
+              <label>Subject
+                <input id="supportSubject" required />
+              </label>
+              <label>Message
+                <textarea id="supportMessage" rows="5" required></textarea>
+              </label>
+              <button class="btn" type="submit">Submit</button>
+            </form>
+          </div>
+          <div class="card">
+            <div class="card-title">FAQs</div>
+            <ul class="list">
+              <li><a href="#" aria-disabled="true">Shipping & Delivery (coming soon)</a></li>
+              <li><a href="#" aria-disabled="true">Returns & Refunds (coming soon)</a></li>
+              <li><a href="#" aria-disabled="true">Warranty (coming soon)</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Settings Panel (off-canvas) -->
+  <aside id="settingsPanel" class="settings" aria-hidden="true" aria-labelledby="settingsTitle" role="dialog">
+    <div class="settings-header">
+      <h2 id="settingsTitle">Settings</h2>
+      <button id="closeSettings" class="icon-btn" aria-label="Close settings">✕</button>
+    </div>
+
+    <div class="settings-body">
+      <form id="settingsForm" class="form" autocomplete="on">
+        <fieldset>
+          <legend>Profile</legend>
+          <div class="row">
+            <div class="col sm">
+              <img id="settingsAvatarPreview" class="avatar-md" src="assets/default-avatar.png" alt="Avatar preview" />
+              <label class="file">
+                <input type="file" id="avatarInput" accept="image/png, image/jpeg" />
+                <span>Change Picture (PNG/JPG, max 2MB)</span>
+              </label>
+            </div>
+            <label class="col">
+              Full Name
+              <input id="sName" required />
+            </label>
+            <label class="col">
+              Email
+              <input id="sEmail" type="email" required />
+            </label>
+          </div>
+
+          <div class="row">
+            <label class="col">
+              Phone
+              <input id="sPhone" inputmode="tel" />
+            </label>
+            <label class="col">
+              Address
+              <input id="sAddress" />
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Preferences</legend>
+          <div class="row">
+            <label class="col sm">
+              Language
+              <select id="sLanguage">
+                <option value="EN">English</option>
+                <option value="FR">Français</option>
+                <option value="ES">Español</option>
+              </select>
+            </label>
+            <label class="col sm">
+              Currency
+              <select id="sCurrency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="XAF">XAF</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="switch">
+            <input type="checkbox" id="sDarkMode" />
+            <span>Enable Dark Mode</span>
+          </label>
+        </fieldset>
+
+        
+        <fieldset>
+          <legend>Notifications</legend>
+          <label class="switch">
+            <input type="checkbox" id="sNotifOrders" />
+            <span>Order updates</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="sNotifPromos" />
+            <span>Promotions</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="sNotifWishlist" />
+            <span>Wishlist stock/price alerts</span>
+          </label>
+        </fieldset>
+
+        <div class="settings-actions">
+          <button type="submit" class="btn">Save Changes</button>
+          <button type="button" id="cancelSettings" class="btn ghost">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </aside>
+  <div id="settingsBackdrop" class="backdrop" hidden></div>
+
+  <script src="accessibility-manager.js"></script>
+    <script src="userprofile.js" defer></script>
+  <script src="i18n.js"></script>
+</body>
+</html>
